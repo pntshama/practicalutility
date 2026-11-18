@@ -1,11 +1,7 @@
 name: Daily SEO
-Article Refresh
+Article Refresh on:
 
-
-
-on:
-
-  schedule:
+ schedule:
 
     - cron: '30 3 * * *' # Runs daily
 around 9:00 AM IST
