@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PracticalUtility — High-Intent Guides &amp; Affiliate Publishing Hub</title>
+  <meta name="description" content="PracticalUtility publishes search-focused buying and maintenance guides for HVAC air filters, water purification, field-service trades software, and small-business invoicing." />
+  <meta property="og:title" content="PracticalUtility — Essential Systems &amp; B2B Guides" />
+  <meta property="og:description" content="In-depth, high-intent guides covering HVAC filtration, water purification, trades software, and small-business invoicing." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://pntshama.github.io/practicalutility/" />
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -155,6 +160,9 @@
             <li><a href="https://www.netlify.com/" target="_blank" rel="noopener noreferrer" class="text-emerald-800 underline font-medium">Netlify Drop</a> — Drag-and-drop this HTML file to go live in 30 seconds.</li>
           </ul>
           <div class="pt-2 border-t border-stone-100 space-y-2">
+            <button type="button" id="downloadJsonBtn" class="w-full px-4 py-2.5 rounded-xl bg-emerald-800 text-white text-sm font-semibold hover:bg-emerald-900 transition">
+              Download articles.json
+            </button>
             <button type="button" id="downloadSiteBtn" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition">
               Download Updated index.html
             </button>
@@ -612,10 +620,36 @@ Website: ${siteUrl}`;
       showToast('Downloaded index.html ready for free hosting!');
     });
 
+    document.getElementById('downloadJsonBtn').addEventListener('click', () => {
+      const blob = new Blob([JSON.stringify(articles, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'articles.json';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+      showToast('Downloaded articles.json for quick repo updates!');
+    });
+
+    async function loadLiveArticles() {
+      try {
+        const res = await fetch('./articles.json?v=' + Date.now(), { cache: 'no-store' });
+        if (!res.ok) return;
+        const remote = await res.json();
+        if (Array.isArray(remote) && remote.length > 0) {
+          articles = remote;
+          renderArticles();
+        }
+      } catch (e) {}
+    }
+
     // Init
     renderArticles();
     renderPartners();
     updateEmailDraft();
+    loadLiveArticles();
   </script>
 </body>
 </html>

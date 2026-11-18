@@ -1,0 +1,79 @@
+[
+  {
+    "id": "hvac-merv-filters",
+    "title": "How to Choose the Right MERV Rating Without Straining Your HVAC Blower",
+    "category": "Water & Air",
+    "keyword": "MERV 11 vs MERV 13 furnace filter",
+    "readTime": "6 min read",
+    "partner": "Filterbuy ($30/new customer)",
+    "partnerUrl": "https://filterbuy.com/partner/",
+    "summary": "A practical homeowner guide to air filter thickness, static pressure drop, and automated replacement schedules.",
+    "body": [
+      "Every month, hundreds of thousands of homeowners search for exact furnace filter dimensions (like 16x25x1 or 20x25x4) and whether jumping from MERV 8 to MERV 13 will damage their blower motor. It is an unglamorous topic, yet one with urgent repeat buying intent.",
+      "The core rule is static pressure: thicker 4-inch or 5-inch media filters have far more pleated surface area than 1-inch filters, allowing higher MERV ratings without choking airflow. If your system only accepts a 1-inch slot, MERV 8 to MERV 11 is usually the safest balance for residential blowers unless an HVAC technician confirms your ductwork handles MERV 13.",
+      "For recurring replacements, direct-to-consumer filter suppliers such as Filterbuy offer custom odd sizes and multi-pack auto-delivery. Publishers can partner with Filterbuy directly via their partner program, which pays $30 for each new residential customer referred on their first order."
+    ],
+    "sources": [
+      { "label": "Filterbuy Partner Program ($30/new customer)", "url": "https://filterbuy.com/partner/" }
+    ]
+  },
+  {
+    "id": "countertop-water-filtration",
+    "title": "Reverse Osmosis vs. Gravity Carbon Filters: Which Low-Maintenance System Fits Your Kitchen?",
+    "category": "Water & Air",
+    "keyword": "best countertop water filter no plumbing",
+    "readTime": "7 min read",
+    "partner": "Waterdrop & Berkey (up to 15% CPS)",
+    "partnerUrl": "https://www.waterdropfilter.com/pages/waterdrop-affiliate-program",
+    "summary": "Comparing countertop RO units and gravity-fed stainless systems on TDS reduction, filter lifespan, and annual cartridge cost.",
+    "body": [
+      "Renters and homeowners increasingly search for no-plumbing water purification systems that remove dissolved solids, chlorine taste, and heavy metals without drilling into granite countertops.",
+      "Countertop Reverse Osmosis (RO) units—such as Waterdrop systems—use a pressurized membrane to strip total dissolved solids (TDS) down dramatically, while gravity carbon systems like Berkey rely on dual-stage carbon elements with zero electricity and long cartridge intervals.",
+      "Because replacement cartridges are purchased every 6 to 12 months, water filtration generates reliable repeat commissions. Waterdrop runs an official affiliate program covering systems and replacement filters, while Berkey Filters offers a 15% CPS commission with monthly payouts."
+    ],
+    "sources": [
+      { "label": "Waterdrop Affiliate Program", "url": "https://www.waterdropfilter.com/pages/waterdrop-affiliate-program" },
+      { "label": "Berkey Filters Affiliate Program (15% CPS)", "url": "https://www.postaffiliatepro.com/affiliate-program-directory/berkey-filters-affiliate-program/" }
+    ]
+  },
+  {
+    "id": "trades-field-service-software",
+    "title": "Plumbing & HVAC Dispatch Software: Jobber vs. QuoteIQ vs. ServiceTitan for Small Crews",
+    "category": "Trades & B2B SaaS",
+    "keyword": "plumbing scheduling and invoicing software",
+    "readTime": "8 min read",
+    "partner": "Jobber (48% commission) / QuoteIQ (40%)",
+    "partnerUrl": "https://www.revshare.so/programs/advertiser/jobber-6cf4dda8",
+    "summary": "Why boring trades software carries low SEO competition, high CPCs, and some of the highest recurring affiliate payouts.",
+    "body": [
+      "Keywords like \"plumbing software\" and \"HVAC dispatch app\" rarely attract lifestyle bloggers, yet small service contractors actively search for tools that handle quoting, dispatch, and mobile invoicing.",
+      "For solo operators and 2–10 truck crews, Jobber and QuoteIQ focus on fast mobile estimates, automated appointment reminders, and quick card payments. Larger multi-location contractors often evaluate ServiceTitan for deeper fleet and call-center reporting.",
+      "From a publishing standpoint, B2B trades software offers standout unit economics: Jobber offers up to 48% commission with a 30-day cookie (via PartnerStack/CJ), QuoteIQ advertises 40% affiliate commissions, and ServiceTitan runs a cash referral program for qualified demos and signups."
+    ],
+    "sources": [
+      { "label": "Jobber Affiliate Program (48% commission)", "url": "https://www.revshare.so/programs/advertiser/jobber-6cf4dda8" },
+      { "label": "QuoteIQ Affiliate Program (40%)", "url": "https://myquoteiq.com/" },
+      { "label": "ServiceTitan Referrals", "url": "https://www.servicetitan.com/referrals" }
+    ]
+  },
+  {
+    "id": "smb-accounting-invoicing",
+    "title": "Order-to-Cash & Invoicing Automation for Small Businesses: Zoho vs. FreshBooks",
+    "category": "Finance & Ops",
+    "keyword": "best invoicing software for small business",
+    "readTime": "6 min read",
+    "partner": "Zoho (15%–20%, PayPal) / FreshBooks",
+    "partnerUrl": "https://www.zoho.com/affiliate/",
+    "summary": "How tightening invoice follow-ups and payment links reduces Days Sales Outstanding (DSO) for small service firms.",
+    "body": [
+      "Cash collection bottlenecks rarely make headlines, yet every growing agency, consultant, and wholesaler searches for ways to automate recurring invoices, late-payment reminders, and tax-ready ledgers.",
+      "Zoho offers an integrated suite covering Zoho Books, Zoho Invoice, and Zoho POS—making it ideal for businesses that want inventory, CRM, and accounting under one roof. FreshBooks excels for freelancers and service firms needing simple time tracking and client-friendly retainers.",
+      "Zoho’s affiliate program pays 15% commission for a full year (rising up to 20% at higher tiers) with a 90-day cookie and PayPal or wire payouts. FreshBooks pays $5–$10 per qualified lead and $55–$200 per paid conversion."
+    ],
+    "sources": [
+      { "label": "Zoho Affiliate Program (PayPal payouts)", "url": "https://programs.affilytics.io/programs/zoho/" },
+      { "label": "Zoho Official Affiliate Portal", "url": "https://www.zoho.com/affiliate/" },
+      { "label": "FreshBooks Affiliate Overview", "url": "https://affiliate.watch/affiliate/freshbooks" }
+    ]
+  }
+]
