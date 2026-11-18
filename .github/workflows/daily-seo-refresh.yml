@@ -1,0 +1,148 @@
+name: Daily SEO
+Article Refresh
+
+
+
+on:
+
+  schedule:
+
+    - cron: '30 3 * * *' # Runs daily
+around 9:00 AM IST
+
+  workflow_dispatch:
+
+
+
+permissions:
+
+  contents: write
+
+
+
+jobs:
+
+  refresh-articles:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repository
+
+        uses: actions/checkout@v4
+
+
+
+      - name: Generate new SEO article
+via Gemini API
+
+        env:
+
+          GEMINI_API_KEY: ${{
+secrets.GEMINI_API_KEY }}
+
+        run: |
+
+          if [ -z
+"$GEMINI_API_KEY" ]; then
+
+            echo "Add GEMINI_API_KEY
+in GitHub Repo Settings -> Secrets -> Actions to enable automated
+generation."
+
+            exit 0
+
+          fi
+
+          python3 - << 'PY'
+
+          import json, os,
+urllib.request
+
+          key =
+os.environ['GEMINI_API_KEY']
+
+          articles =
+json.load(open('articles.json'))
+
+          existing_titles = [a['title']
+for a in articles[:8]]
+
+          prompt = (
+
+              "Generate 1 new
+practical, SEO-optimized article JSON object for PracticalUtility on a
+high-intent boring niche "
+
+              "(HVAC maintenance,
+water filtration, trades software, or SMB invoicing). Avoid these titles:
+"
+
+              + ";
+".join(existing_titles)
+
+              + ". Return ONLY valid
+JSON with keys: id, title, category (one of: Home Utility, Water & Air,
+Trades & B2B SaaS, Finance & Ops), "
+
+              "keyword, readTime,
+partner, partnerUrl, summary, body (array of 3 detailed paragraphs), sources
+(array of {label, url})."
+
+          )
+
+          req =
+urllib.request.Request(
+
+             
+f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={key}",
+
+             
+data=json.dumps({"contents": [{"parts":
+[{"text": prompt}]}], "generationConfig":
+{"responseMimeType": "application/json"}}).encode(),
+
+             
+headers={"Content-Type": "application/json"},
+
+              method="POST"
+
+          )
+
+          with
+urllib.request.urlopen(req) as resp:
+
+              data =
+json.loads(resp.read().decode())
+
+              text =
+data["candidates"][0]["content"]["parts"][0]["text"]
+
+              new_art = json.loads(text)
+
+              articles.insert(0,
+new_art)
+
+              json.dump(articles,
+open('articles.json', 'w'), indent=2)
+
+          PY
+
+
+
+      - name: Commit updated
+articles.json
+
+        run: |
+
+          git config user.name
+"github-actions[bot]"
+
+          git config user.email
+"github-actions[bot]@users.noreply.github.com"
+
+          git add articles.json
+
+          git diff --cached --quiet ||
+(git commit -m "Daily SEO article refresh" && git push)
