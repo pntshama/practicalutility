@@ -14,7 +14,10 @@
       "For recurring replacements, direct-to-consumer filter suppliers such as Filterbuy offer custom odd sizes and multi-pack auto-delivery. Publishers can partner with Filterbuy directly via their partner program, which pays $30 for each new residential customer referred on their first order."
     ],
     "sources": [
-      { "label": "Filterbuy Partner Program ($30/new customer)", "url": "https://filterbuy.com/partner/" }
+      {
+        "label": "Filterbuy Partner Program ($30/new customer)",
+        "url": "https://filterbuy.com/partner/"
+      }
     ]
   },
   {
@@ -28,12 +31,18 @@
     "summary": "Comparing countertop RO units and gravity-fed stainless systems on TDS reduction, filter lifespan, and annual cartridge cost.",
     "body": [
       "Renters and homeowners increasingly search for no-plumbing water purification systems that remove dissolved solids, chlorine taste, and heavy metals without drilling into granite countertops.",
-      "Countertop Reverse Osmosis (RO) units—such as Waterdrop systems—use a pressurized membrane to strip total dissolved solids (TDS) down dramatically, while gravity carbon systems like Berkey rely on dual-stage carbon elements with zero electricity and long cartridge intervals.",
+      "Countertop Reverse Osmosis (RO) units\u2014such as Waterdrop systems\u2014use a pressurized membrane to strip total dissolved solids (TDS) down dramatically, while gravity carbon systems like Berkey rely on dual-stage carbon elements with zero electricity and long cartridge intervals.",
       "Because replacement cartridges are purchased every 6 to 12 months, water filtration generates reliable repeat commissions. Waterdrop runs an official affiliate program covering systems and replacement filters, while Berkey Filters offers a 15% CPS commission with monthly payouts."
     ],
     "sources": [
-      { "label": "Waterdrop Affiliate Program", "url": "https://www.waterdropfilter.com/pages/waterdrop-affiliate-program" },
-      { "label": "Berkey Filters Affiliate Program (15% CPS)", "url": "https://www.postaffiliatepro.com/affiliate-program-directory/berkey-filters-affiliate-program/" }
+      {
+        "label": "Waterdrop Affiliate Program",
+        "url": "https://www.waterdropfilter.com/pages/waterdrop-affiliate-program"
+      },
+      {
+        "label": "Berkey Filters Affiliate Program (15% CPS)",
+        "url": "https://www.postaffiliatepro.com/affiliate-program-directory/berkey-filters-affiliate-program/"
+      }
     ]
   },
   {
@@ -47,13 +56,22 @@
     "summary": "Why boring trades software carries low SEO competition, high CPCs, and some of the highest recurring affiliate payouts.",
     "body": [
       "Keywords like \"plumbing software\" and \"HVAC dispatch app\" rarely attract lifestyle bloggers, yet small service contractors actively search for tools that handle quoting, dispatch, and mobile invoicing.",
-      "For solo operators and 2–10 truck crews, Jobber and QuoteIQ focus on fast mobile estimates, automated appointment reminders, and quick card payments. Larger multi-location contractors often evaluate ServiceTitan for deeper fleet and call-center reporting.",
+      "For solo operators and 2\u201310 truck crews, Jobber and QuoteIQ focus on fast mobile estimates, automated appointment reminders, and quick card payments. Larger multi-location contractors often evaluate ServiceTitan for deeper fleet and call-center reporting.",
       "From a publishing standpoint, B2B trades software offers standout unit economics: Jobber offers up to 48% commission with a 30-day cookie (via PartnerStack/CJ), QuoteIQ advertises 40% affiliate commissions, and ServiceTitan runs a cash referral program for qualified demos and signups."
     ],
     "sources": [
-      { "label": "Jobber Affiliate Program (48% commission)", "url": "https://www.revshare.so/programs/advertiser/jobber-6cf4dda8" },
-      { "label": "QuoteIQ Affiliate Program (40%)", "url": "https://myquoteiq.com/" },
-      { "label": "ServiceTitan Referrals", "url": "https://www.servicetitan.com/referrals" }
+      {
+        "label": "Jobber Affiliate Program (48% commission)",
+        "url": "https://www.revshare.so/programs/advertiser/jobber-6cf4dda8"
+      },
+      {
+        "label": "Try QuoteIQ (Partner Link)",
+        "url": "https://admin-quoteiq.web.app/register?via=puneet-sharma"
+      },
+      {
+        "label": "ServiceTitan Referrals",
+        "url": "https://www.servicetitan.com/referrals"
+      }
     ]
   },
   {
@@ -62,18 +80,27 @@
     "category": "Finance & Ops",
     "keyword": "best invoicing software for small business",
     "readTime": "6 min read",
-    "partner": "Zoho (15%–20%, PayPal) / FreshBooks",
+    "partner": "Zoho (15%\u201320%, PayPal) / FreshBooks",
     "partnerUrl": "https://www.zoho.com/affiliate/",
     "summary": "How tightening invoice follow-ups and payment links reduces Days Sales Outstanding (DSO) for small service firms.",
     "body": [
       "Cash collection bottlenecks rarely make headlines, yet every growing agency, consultant, and wholesaler searches for ways to automate recurring invoices, late-payment reminders, and tax-ready ledgers.",
-      "Zoho offers an integrated suite covering Zoho Books, Zoho Invoice, and Zoho POS—making it ideal for businesses that want inventory, CRM, and accounting under one roof. FreshBooks excels for freelancers and service firms needing simple time tracking and client-friendly retainers.",
-      "Zoho’s affiliate program pays 15% commission for a full year (rising up to 20% at higher tiers) with a 90-day cookie and PayPal or wire payouts. FreshBooks pays $5–$10 per qualified lead and $55–$200 per paid conversion."
+      "Zoho offers an integrated suite covering Zoho Books, Zoho Invoice, and Zoho POS\u2014making it ideal for businesses that want inventory, CRM, and accounting under one roof. FreshBooks excels for freelancers and service firms needing simple time tracking and client-friendly retainers.",
+      "Zoho\u2019s affiliate program pays 15% commission for a full year (rising up to 20% at higher tiers) with a 90-day cookie and PayPal or wire payouts. FreshBooks pays $5\u2013$10 per qualified lead and $55\u2013$200 per paid conversion."
     ],
     "sources": [
-      { "label": "Zoho Affiliate Program (PayPal payouts)", "url": "https://programs.affilytics.io/programs/zoho/" },
-      { "label": "Zoho Official Affiliate Portal", "url": "https://www.zoho.com/affiliate/" },
-      { "label": "FreshBooks Affiliate Overview", "url": "https://affiliate.watch/affiliate/freshbooks" }
+      {
+        "label": "Zoho Affiliate Program (PayPal payouts)",
+        "url": "https://programs.affilytics.io/programs/zoho/"
+      },
+      {
+        "label": "Zoho Official Affiliate Portal",
+        "url": "https://www.zoho.com/affiliate/"
+      },
+      {
+        "label": "FreshBooks Affiliate Overview",
+        "url": "https://affiliate.watch/affiliate/freshbooks"
+      }
     ]
   }
 ]
