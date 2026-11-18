@@ -2,7 +2,7 @@ name: Daily SEO Article Refresh
 
 on:
   schedule:
-    - cron: '30 3 * * *'
+    - cron: '30 3 * * *' # Runs daily around 9:00 AM IST
   workflow_dispatch:
 
 permissions:
@@ -55,4 +55,3 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add articles.json
           git diff --cached --quiet || (git commit -m "Daily SEO article refresh" && git push)
-concurrency: 
