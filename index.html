@@ -119,8 +119,8 @@
         </div>
       </div>
 
-      <!-- Mobile Segmented Toggle (Guides | World News) -->
-      <div class="lg:hidden flex items-center gap-2 bg-white p-1.5 rounded-xl border border-stone-200 shadow-sm">
+      <!-- Guides | World News Segmented Toggle -->
+      <div class="flex items-center gap-2 bg-white p-1.5 rounded-xl border border-stone-200 shadow-sm lg:max-w-md">
         <button type="button" id="mobileTabGuides" class="flex-1 py-2 px-3 rounded-lg text-xs font-semibold bg-emerald-800 text-white transition">
           Guides (<span id="mobileGuidesCount">0</span>)
         </button>
@@ -129,31 +129,31 @@
         </button>
       </div>
 
-      <!-- Desktop 2/3 Guides + 1/3 News Split (Single Tabbed View on Mobile) -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Full-Width Tabbed Sections (Same on Mobile & Desktop) -->
+      <div class="space-y-6">
         <!-- SECTION 1: GUIDES -->
-        <div id="guides-section" class="lg:col-span-8 space-y-4">
+        <div id="guides-section" class="space-y-4">
           <div class="flex items-baseline justify-between gap-2">
             <h2 class="font-serif-editorial text-2xl font-bold text-slate-900">Practical Guides</h2>
             <span id="guidesCountLabel" class="text-xs text-slate-500"></span>
           </div>
-          <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+          <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
           <div id="emptyArticles" class="hidden bg-white border border-stone-200 rounded-2xl p-10 text-center">
             <p class="text-slate-600 text-sm">No guides match your current search or category.</p>
           </div>
         </div>
 
         <!-- SECTION 2: WORLD & INDUSTRY NEWS -->
-        <aside id="news-section" class="hidden lg:block lg:col-span-4 space-y-4">
+        <section id="news-section" class="hidden space-y-4">
           <div class="flex items-baseline justify-between gap-2">
-            <h2 class="font-serif-editorial text-2xl font-bold text-slate-900">World News</h2>
+            <h2 class="font-serif-editorial text-2xl font-bold text-slate-900">World &amp; Industry News</h2>
             <span id="newsCountLabel" class="text-xs text-slate-500"></span>
           </div>
-          <div id="newsGrid" class="space-y-4"></div>
-          <div id="emptyNews" class="hidden bg-white border border-stone-200 rounded-2xl p-6 text-center">
-            <p class="text-slate-600 text-xs">No news stories match your current search.</p>
+          <div id="newsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+          <div id="emptyNews" class="hidden bg-white border border-stone-200 rounded-2xl p-8 text-center">
+            <p class="text-slate-600 text-sm">No news stories match your current search.</p>
           </div>
-        </aside>
+        </section>
       </div>
     </section>
 
