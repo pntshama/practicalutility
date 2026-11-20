@@ -76,8 +76,9 @@ jobs:
 
           # 2. Refresh news.json every 24h
           news_prompt = (
-              "Search for 4 recent, real industry news headlines (1 each for: Water & Air, Home Utility, Finance & Ops, Trades & B2B SaaS). "
-              "Return ONLY a JSON array of 4 objects, each with keys: category, title, url (the real https source URL)."
+              "Search for 4 recent, real industry news stories from reputable sources (1 each for: Water & Air, Home Utility, Finance & Ops, Trades & B2B SaaS). "
+              "Return ONLY a JSON array of 4 objects, each with keys: id, category, source (publisher name), title, "
+              "summary (exactly 2 clear sentences), detail (array of 2 concise paragraphs expanding on the story), and url (the real https source URL)."
           )
           try:
               fresh_news = call_gemini(news_prompt, use_search=True)
