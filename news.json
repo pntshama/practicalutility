@@ -1,22 +1,50 @@
 [
   {
+    "id": "news-epa-pfas-2026",
     "category": "Water & Air",
-    "title": "EPA upholds 4 ppt PFOA/PFOS drinking water limits while proposing 2031 utility compliance extension",
+    "source": "U.S. EPA",
+    "title": "EPA Upholds 4 ppt PFOA & PFOS Drinking Water Limits While Proposing 2031 Extension",
+    "summary": "The U.S. Environmental Protection Agency proposed upholding its strict 4 parts-per-trillion federal limits for PFOA and PFOS in drinking water. At the same time, the agency proposed giving public water utilities two extra years—until 2031—to meet full compliance.",
+    "detail": [
+      "Under the May 2026 proposed rule, the federal Maximum Contaminant Levels (MCLs) for PFOA and PFOS remain enforceable at 4 parts per trillion, while eligible drinking water systems may request an extension from April 2029 to April 2031.",
+      "Separately, the EPA proposed rescinding federal regulations for four other PFAS compounds (PFHxS, PFNA, GenX, and PFBS mixtures), prompting many homeowners to rely on IAPMO NSF/ANSI 53 certified point-of-use reverse osmosis filters in the interim."
+    ],
     "url": "https://www.epa.gov/sdwa/proposed-pfoa-and-pfos-compliance-extension-rule"
   },
   {
+    "id": "news-mini-split-2026",
     "category": "Home Utility",
-    "title": "Global ductless mini-split HVAC market reaches $19.4B in 2026 as heat pumps drive residential growth",
+    "source": "Coherent Market Insights",
+    "title": "Global Ductless Mini-Split HVAC Market Reaches $19.4 Billion in 2026",
+    "summary": "Industry analysis estimates the global ductless mini-split market at $19.40 billion in 2026, driven by residential heat-pump retrofits. Single-zone systems now represent roughly 59.7% of total market share as homeowners target room-by-room efficiency.",
+    "detail": [
+      "The global ductless mini-splits market is projected to grow at an 8.5% compound annual growth rate from 2026 through 2033, reaching $34.42 billion as households replace older fossil-fuel furnaces with inverter heat pumps.",
+      "Major HVAC manufacturers have expanded North American ductless lines in 2026, making proper BTU sizing (20–25 BTUs per sq ft) and regular 4-to-6-week filter cleaning essential for preserving rated SEER2 efficiency."
+    ],
     "url": "https://www.coherentmarketinsights.com/industry-reports/ductless-mini-splits-market"
   },
   {
+    "id": "news-einvoicing-2026",
     "category": "Finance & Ops",
-    "title": "Mandatory B2B e-invoicing now live in France, Poland, Belgium & Greece ahead of 2027 Germany rollout",
+    "source": "Taxually",
+    "title": "Mandatory B2B E-Invoicing Expands Across Europe Ahead of 2027 Rollouts",
+    "summary": "As of November 2026, mandatory B2B electronic invoicing is live in France, Poland, Belgium, Italy, Romania, Croatia, and Greece. Germany and Spain will follow with staggered small-business deadlines starting in 2027 and 2028.",
+    "detail": [
+      "Large and mid-sized companies in France entered live B2B e-invoicing in September 2026, while SMEs and micro-enterprises must begin issuing compliant electronic invoices by September 2027.",
+      "For small service firms and cross-border agencies, adopting cloud invoicing tools like Zoho Invoice or FreshBooks early helps standardize structured invoice formats, automated tax reporting, and faster payment collection."
+    ],
     "url": "https://www.taxually.com/blog/e-invoicing-mandates-by-country-2026"
   },
   {
+    "id": "news-trades-crm-2026",
     "category": "Trades & B2B SaaS",
-    "title": "HVAC & service contractors adopt mobile CRM and automated quote follow-up platforms in 2026",
+    "source": "SMBcrm",
+    "title": "HVAC & Service Contractors Shift to Automated Quote Follow-Up & Mobile CRMs",
+    "summary": "Field-service contractors in 2026 are increasingly replacing paper estimates with mobile CRMs that automate missed-call text-backs and quote follow-ups. Owner-led shops prioritize fast request-to-payment workflows over complex enterprise suites.",
+    "detail": [
+      "Industry comparisons show growing adoption of tiered field-service software—ranging from Jobber and specialized HVAC CRMs to mobile-first platforms like QuoteIQ—to prevent unfollowed estimates from slipping through the cracks.",
+      "Automated SMS reminders, on-site card capture, and QuickBooks sync are now standard expectations even for 1-to-5 truck plumbing, HVAC, and exterior-cleaning crews."
+    ],
     "url": "https://smbcrm.com/blog/best-crm-for-hvac-companies-2026/"
   }
 ]

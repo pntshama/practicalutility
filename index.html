@@ -72,20 +72,6 @@
     </div>
   </header>
 
-  <!-- World & Industry News Banner -->
-  <div class="bg-slate-900 text-white border-b border-slate-800">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3">
-      <div class="flex items-center gap-2.5 min-w-0 flex-1">
-        <span class="shrink-0 inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-700 text-[11px] font-bold uppercase tracking-wider">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-pulse"></span>
-          World News
-        </span>
-        <span id="newsCategoryBadge" class="hidden sm:inline-block shrink-0 text-[11px] font-medium text-emerald-300 bg-slate-800 px-2 py-0.5 rounded"></span>
-        <a id="newsHeadlineLink" href="https://www.epa.gov/sdwa/proposed-pfoa-and-pfos-compliance-extension-rule" target="_blank" rel="noopener noreferrer"
-          class="news-fade text-xs sm:text-sm text-stone-100 hover:text-emerald-300 truncate transition">
-          Loading latest industry updates...
-        </a>
-      </div>
       <div class="flex items-center gap-1 shrink-0">
         <button type="button" id="newsPrevBtn" aria-label="Previous news" class="px-2 py-1 rounded hover:bg-slate-800 text-xs text-slate-300">&lsaquo;</button>
         <button type="button" id="newsPauseBtn" aria-label="Pause news rotation" class="px-2 py-1 rounded hover:bg-slate-800 text-[11px] text-slate-300">Pause</button>
@@ -133,10 +119,31 @@
         </div>
       </div>
 
-      <!-- Article Grid -->
-      <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
-      <div id="emptyArticles" class="hidden bg-white border border-stone-200 rounded-2xl p-10 text-center">
-        <p class="text-slate-600 text-sm">No articles match your current filter. Try clearing the search box or publishing a new guide.</p>
+      <!-- Quick Jump Bar (Mobile-friendly) -->
+      <div class="flex items-center gap-2 text-xs font-semibold">
+        <a href="#guides-section" class="px-3 py-1.5 rounded-lg bg-emerald-800 text-white">Guides</a>
+        <a href="#news-section" class="px-3 py-1.5 rounded-lg bg-white border border-stone-300 text-slate-700 hover:bg-stone-100">World &amp; Industry News</a>
+      </div>
+
+      <!-- SECTION 1: GUIDES -->
+      <div id="guides-section" class="space-y-4">
+        <div class="flex items-baseline justify-between gap-2">
+          <h2 class="font-serif-editorial text-2xl font-bold text-slate-900">Practical Guides</h2>
+          <span id="guidesCountLabel" class="text-xs text-slate-500"></span>
+        </div>
+        <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        <div id="emptyArticles" class="hidden bg-white border border-stone-200 rounded-2xl p-10 text-center">
+          <p class="text-slate-600 text-sm">No guides match your current filter. Try clearing the search box or switching categories.</p>
+        </div>
+      </div>
+
+      <!-- SECTION 2: WORLD & INDUSTRY NEWS -->
+      <div id="news-section" class="pt-6 border-t border-stone-200 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
+          <h2 class="font-serif-editorial text-2xl font-bold text-slate-900">World &amp; Industry News</h2>
+          <p class="text-xs text-slate-500">Curated regulatory &amp; market updates across our core categories</p>
+        </div>
+        <div id="newsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
       </div>
     </section>
 
@@ -472,6 +479,8 @@
         return catMatch && textMatch;
       });
 
+      const countEl = document.getElementById("guidesCountLabel");
+      if (countEl) countEl.textContent = `${filtered.length} guide${filtered.length === 1 ? "" : "s"}`;
       if (filtered.length === 0) {
         grid.innerHTML = '';
         empty.classList.remove('hidden');
@@ -596,6 +605,7 @@
       });
       renderArticles();
       renderDrawerCategories();
+      renderNewsCards();
     }
 
     function toggleDrawer(forceOpen) {
@@ -623,72 +633,124 @@
     renderDrawerCategories();
     const WORLD_NEWS = [
       {
+        id: 'news-epa-pfas-2026',
         category: 'Water & Air',
-        title: 'EPA upholds 4 ppt PFOA/PFOS drinking water limits while proposing 2031 utility compliance extension',
+        source: 'U.S. EPA',
+        title: 'EPA Upholds 4 ppt PFOA & PFOS Drinking Water Limits While Proposing 2031 Extension',
+        summary: 'The U.S. Environmental Protection Agency proposed upholding its strict 4 parts-per-trillion federal limits for PFOA and PFOS in drinking water. At the same time, the agency proposed giving public water utilities two extra years—until 2031—to meet full compliance.',
+        detail: [
+          'Under the May 2026 proposed rule, the federal Maximum Contaminant Levels (MCLs) for PFOA and PFOS remain enforceable at 4 parts per trillion, while eligible drinking water systems may request an extension from April 2029 to April 2031.',
+          'Separately, the EPA proposed rescinding federal regulations for four other PFAS compounds (PFHxS, PFNA, GenX, and PFBS mixtures), prompting many homeowners to rely on IAPMO NSF/ANSI 53 certified point-of-use reverse osmosis filters in the interim.'
+        ],
         url: 'https://www.epa.gov/sdwa/proposed-pfoa-and-pfos-compliance-extension-rule'
       },
       {
+        id: 'news-mini-split-2026',
         category: 'Home Utility',
-        title: 'Global ductless mini-split HVAC market reaches $19.4B in 2026 as heat pumps drive residential growth',
+        source: 'Coherent Market Insights',
+        title: 'Global Ductless Mini-Split HVAC Market Reaches $19.4 Billion in 2026',
+        summary: 'Industry analysis estimates the global ductless mini-split market at $19.40 billion in 2026, driven by residential heat-pump retrofits. Single-zone systems now represent roughly 59.7% of total market share as homeowners target room-by-room efficiency.',
+        detail: [
+          'The global ductless mini-splits market is projected to grow at an 8.5% compound annual growth rate from 2026 through 2033, reaching $34.42 billion as households replace older fossil-fuel furnaces with inverter heat pumps.',
+          'Major HVAC manufacturers have expanded North American ductless lines in 2026, making proper BTU sizing (20–25 BTUs per sq ft) and regular 4-to-6-week filter cleaning essential for preserving rated SEER2 efficiency.'
+        ],
         url: 'https://www.coherentmarketinsights.com/industry-reports/ductless-mini-splits-market'
       },
       {
+        id: 'news-einvoicing-2026',
         category: 'Finance & Ops',
-        title: 'Mandatory B2B e-invoicing now live in France, Poland, Belgium & Greece ahead of 2027 Germany rollout',
+        source: 'Taxually',
+        title: 'Mandatory B2B E-Invoicing Expands Across Europe Ahead of 2027 Rollouts',
+        summary: 'As of November 2026, mandatory B2B electronic invoicing is live in France, Poland, Belgium, Italy, Romania, Croatia, and Greece. Germany and Spain will follow with staggered small-business deadlines starting in 2027 and 2028.',
+        detail: [
+          'Large and mid-sized companies in France entered live B2B e-invoicing in September 2026, while SMEs and micro-enterprises must begin issuing compliant electronic invoices by September 2027.',
+          'For small service firms and cross-border agencies, adopting cloud invoicing tools like Zoho Invoice or FreshBooks early helps standardize structured invoice formats, automated tax reporting, and faster payment collection.'
+        ],
         url: 'https://www.taxually.com/blog/e-invoicing-mandates-by-country-2026'
       },
       {
+        id: 'news-trades-crm-2026',
         category: 'Trades & B2B SaaS',
-        title: 'HVAC & service contractors adopt mobile CRM and automated quote follow-up platforms in 2026',
+        source: 'SMBcrm',
+        title: 'HVAC & Service Contractors Shift to Automated Quote Follow-Up & Mobile CRMs',
+        summary: 'Field-service contractors in 2026 are increasingly replacing paper estimates with mobile CRMs that automate missed-call text-backs and quote follow-ups. Owner-led shops prioritize fast request-to-payment workflows over complex enterprise suites.',
+        detail: [
+          'Industry comparisons show growing adoption of tiered field-service software—ranging from Jobber and specialized HVAC CRMs to mobile-first platforms like QuoteIQ—to prevent unfollowed estimates from slipping through the cracks.',
+          'Automated SMS reminders, on-site card capture, and QuickBooks sync are now standard expectations even for 1-to-5 truck plumbing, HVAC, and exterior-cleaning crews.'
+        ],
         url: 'https://smbcrm.com/blog/best-crm-for-hvac-companies-2026/'
       }
     ];
-    let newsIndex = 0;
-    let newsPaused = false;
-    let newsTimer = null;
-
-
-
-    function startNewsRotation() {
-      clearInterval(newsTimer);
-      if (newsPaused) return;
-      newsTimer = setInterval(() => {
-        newsIndex = (newsIndex + 1) % worldNews.length;
-        renderNewsItem();
-      }, 6000);
-    }
-
-    document.getElementById('newsPrevBtn').addEventListener('click', () => {
-      newsIndex = (newsIndex - 1 + worldNews.length) % worldNews.length;
-      renderNewsItem();
-      startNewsRotation();
-    });
-    document.getElementById('newsNextBtn').addEventListener('click', () => {
-      newsIndex = (newsIndex + 1) % worldNews.length;
-      renderNewsItem();
-      startNewsRotation();
-    });
-    document.getElementById('newsPauseBtn').addEventListener('click', () => {
-      newsPaused = !newsPaused;
-      document.getElementById('newsPauseBtn').textContent = newsPaused ? 'Play' : 'Pause';
-      if (newsPaused) clearInterval(newsTimer);
-      else startNewsRotation();
-    });
 
     let worldNews = [...WORLD_NEWS];
 
-    function renderNewsItem() {
-      const item = worldNews[newsIndex];
-      const link = document.getElementById('newsHeadlineLink');
-      const badge = document.getElementById('newsCategoryBadge');
-      if (!link || !badge || !item) return;
-      link.style.opacity = '0';
-      setTimeout(() => {
-        badge.textContent = item.category;
-        link.textContent = item.title;
-        link.href = item.url;
-        link.style.opacity = '1';
-      }, 150);
+    function renderNewsCards() {
+      const grid = document.getElementById('newsGrid');
+      if (!grid) return;
+      const filteredNews = activeCategory === 'All'
+        ? worldNews
+        : worldNews.filter(n => n.category === activeCategory);
+      const list = filteredNews.length ? filteredNews : worldNews;
+
+      grid.innerHTML = list.map((n, idx) => `
+        <article class="animate-card bg-white border border-stone-200 rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between gap-4">
+          <div class="space-y-2.5">
+            <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">${n.category}</span>
+              <span class="text-slate-500 font-medium">Source: <strong class="text-slate-700">${n.source}</strong></span>
+            </div>
+            <h3 class="font-serif-editorial text-lg sm:text-xl font-bold text-slate-900 leading-snug">${n.title}</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">${n.summary}</p>
+          </div>
+          <div class="pt-3 border-t border-stone-100 flex items-center justify-between gap-3">
+            <a href="${n.url}" target="_blank" rel="noopener noreferrer" class="text-xs font-medium text-slate-500 hover:text-emerald-800 underline truncate">
+              ${n.source} &nearr;
+            </a>
+            <button type="button" data-news-idx="${worldNews.indexOf(n)}" class="read-news-btn text-sm font-semibold text-emerald-800 hover:text-emerald-950 shrink-0">
+              Read &rarr;
+            </button>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function openNewsModal(idx) {
+      const n = worldNews[idx];
+      if (!n) return;
+      document.getElementById('modalCategory').textContent = `World & Industry News • ${n.category} • Source: ${n.source}`;
+      const paragraphs = Array.isArray(n.detail) && n.detail.length ? n.detail : [n.summary];
+      document.getElementById('modalContent').innerHTML = `
+        <h2 class="font-serif-editorial text-2xl sm:text-3xl font-bold text-slate-900 leading-tight">${n.title}</h2>
+        <div class="text-xs font-medium text-slate-500">Verified Source: <span class="text-slate-800 font-semibold">${n.source}</span></div>
+        <div class="space-y-4 text-slate-700 leading-relaxed text-sm sm:text-base">
+          <p class="font-medium text-slate-800">${n.summary}</p>
+          ${paragraphs.map(p => `<p>${p}</p>`).join('')}
+        </div>
+        <div class="pt-4 border-t border-stone-200">
+          <a href="${n.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-800 text-white text-sm font-semibold hover:bg-emerald-900 transition">
+            Read Full Report at ${n.source} &nearr;
+          </a>
+        </div>
+      `;
+      document.getElementById('articleModal').classList.remove('hidden');
+    }
+
+    document.getElementById('newsGrid').addEventListener('click', e => {
+      const btn = e.target.closest('.read-news-btn');
+      if (btn) openNewsModal(Number(btn.dataset.newsIdx));
+    });
+
+    async function loadLiveArticles() {
+      try {
+        const res = await fetch('./articles.json?v=' + Date.now(), { cache: 'no-store' });
+        if (!res.ok) return;
+        const remote = await res.json();
+        if (Array.isArray(remote) && remote.length > 0) {
+          articles = remote;
+          renderArticles();
+          renderDrawerCategories();
+        }
+      } catch (e) {}
     }
 
     async function loadLiveNews() {
@@ -698,14 +760,14 @@
         const remote = await res.json();
         if (Array.isArray(remote) && remote.length > 0) {
           worldNews = remote;
-          newsIndex = 0;
-          renderNewsItem();
+          renderNewsCards();
         }
       } catch (e) {}
     }
 
-    renderNewsItem();
-    startNewsRotation();
+    renderArticles();
+    renderDrawerCategories();
+    renderNewsCards();
     loadLiveArticles();
     loadLiveNews();
   </script>
