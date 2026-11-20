@@ -119,31 +119,41 @@
         </div>
       </div>
 
-      <!-- Quick Jump Bar (Mobile-friendly) -->
-      <div class="flex items-center gap-2 text-xs font-semibold">
-        <a href="#guides-section" class="px-3 py-1.5 rounded-lg bg-emerald-800 text-white">Guides</a>
-        <a href="#news-section" class="px-3 py-1.5 rounded-lg bg-white border border-stone-300 text-slate-700 hover:bg-stone-100">World &amp; Industry News</a>
+      <!-- Mobile Segmented Toggle (Guides | World News) -->
+      <div class="lg:hidden flex items-center gap-2 bg-white p-1.5 rounded-xl border border-stone-200 shadow-sm">
+        <button type="button" id="mobileTabGuides" class="flex-1 py-2 px-3 rounded-lg text-xs font-semibold bg-emerald-800 text-white transition">
+          Guides (<span id="mobileGuidesCount">0</span>)
+        </button>
+        <button type="button" id="mobileTabNews" class="flex-1 py-2 px-3 rounded-lg text-xs font-semibold text-slate-600 hover:bg-stone-100 transition">
+          World News (<span id="mobileNewsCount">0</span>)
+        </button>
       </div>
 
-      <!-- SECTION 1: GUIDES -->
-      <div id="guides-section" class="space-y-4">
-        <div class="flex items-baseline justify-between gap-2">
-          <h2 class="font-serif-editorial text-2xl font-bold text-slate-900">Practical Guides</h2>
-          <span id="guidesCountLabel" class="text-xs text-slate-500"></span>
+      <!-- Desktop 2/3 Guides + 1/3 News Split (Single Tabbed View on Mobile) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- SECTION 1: GUIDES -->
+        <div id="guides-section" class="lg:col-span-8 space-y-4">
+          <div class="flex items-baseline justify-between gap-2">
+            <h2 class="font-serif-editorial text-2xl font-bold text-slate-900">Practical Guides</h2>
+            <span id="guidesCountLabel" class="text-xs text-slate-500"></span>
+          </div>
+          <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+          <div id="emptyArticles" class="hidden bg-white border border-stone-200 rounded-2xl p-10 text-center">
+            <p class="text-slate-600 text-sm">No guides match your current search or category.</p>
+          </div>
         </div>
-        <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
-        <div id="emptyArticles" class="hidden bg-white border border-stone-200 rounded-2xl p-10 text-center">
-          <p class="text-slate-600 text-sm">No guides match your current filter. Try clearing the search box or switching categories.</p>
-        </div>
-      </div>
 
-      <!-- SECTION 2: WORLD & INDUSTRY NEWS -->
-      <div id="news-section" class="pt-6 border-t border-stone-200 space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1">
-          <h2 class="font-serif-editorial text-2xl font-bold text-slate-900">World &amp; Industry News</h2>
-          <p class="text-xs text-slate-500">Curated regulatory &amp; market updates across our core categories</p>
-        </div>
-        <div id="newsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+        <!-- SECTION 2: WORLD & INDUSTRY NEWS -->
+        <aside id="news-section" class="hidden lg:block lg:col-span-4 space-y-4">
+          <div class="flex items-baseline justify-between gap-2">
+            <h2 class="font-serif-editorial text-2xl font-bold text-slate-900">World News</h2>
+            <span id="newsCountLabel" class="text-xs text-slate-500"></span>
+          </div>
+          <div id="newsGrid" class="space-y-4"></div>
+          <div id="emptyNews" class="hidden bg-white border border-stone-200 rounded-2xl p-6 text-center">
+            <p class="text-slate-600 text-xs">No news stories match your current search.</p>
+          </div>
+        </aside>
       </div>
     </section>
 
@@ -481,6 +491,8 @@
 
       const countEl = document.getElementById("guidesCountLabel");
       if (countEl) countEl.textContent = `${filtered.length} guide${filtered.length === 1 ? "" : "s"}`;
+      const mobG = document.getElementById("mobileGuidesCount");
+      if (mobG) mobG.textContent = String(filtered.length);
       if (filtered.length === 0) {
         grid.innerHTML = '';
         empty.classList.remove('hidden');
@@ -553,6 +565,7 @@
     document.getElementById('articleSearch').addEventListener('input', e => {
       searchQuery = e.target.value;
       renderArticles();
+      renderNewsCards();
     });
 
     document.getElementById('articlesGrid').addEventListener('click', e => {
@@ -636,6 +649,8 @@
         id: 'news-epa-pfas-2026',
         category: 'Water & Air',
         source: 'U.S. EPA',
+        date: 'Nov 2026',
+        relatedGuideId: 'pfas-water-filter-guide-2026',
         title: 'EPA Upholds 4 ppt PFOA & PFOS Drinking Water Limits While Proposing 2031 Extension',
         summary: 'The U.S. Environmental Protection Agency proposed upholding its strict 4 parts-per-trillion federal limits for PFOA and PFOS in drinking water. At the same time, the agency proposed giving public water utilities two extra years—until 2031—to meet full compliance.',
         detail: [
@@ -648,6 +663,8 @@
         id: 'news-mini-split-2026',
         category: 'Home Utility',
         source: 'Coherent Market Insights',
+        date: 'Nov 2026',
+        relatedGuideId: 'mini-split-btu-sizing-maintenance',
         title: 'Global Ductless Mini-Split HVAC Market Reaches $19.4 Billion in 2026',
         summary: 'Industry analysis estimates the global ductless mini-split market at $19.40 billion in 2026, driven by residential heat-pump retrofits. Single-zone systems now represent roughly 59.7% of total market share as homeowners target room-by-room efficiency.',
         detail: [
@@ -660,6 +677,8 @@
         id: 'news-einvoicing-2026',
         category: 'Finance & Ops',
         source: 'Taxually',
+        date: 'Nov 2026',
+        relatedGuideId: 'automated-invoice-reminders-2026',
         title: 'Mandatory B2B E-Invoicing Expands Across Europe Ahead of 2027 Rollouts',
         summary: 'As of November 2026, mandatory B2B electronic invoicing is live in France, Poland, Belgium, Italy, Romania, Croatia, and Greece. Germany and Spain will follow with staggered small-business deadlines starting in 2027 and 2028.',
         detail: [
@@ -672,6 +691,8 @@
         id: 'news-trades-crm-2026',
         category: 'Trades & B2B SaaS',
         source: 'SMBcrm',
+        date: 'Nov 2026',
+        relatedGuideId: 'field-service-job-costing-2026',
         title: 'HVAC & Service Contractors Shift to Automated Quote Follow-Up & Mobile CRMs',
         summary: 'Field-service contractors in 2026 are increasingly replacing paper estimates with mobile CRMs that automate missed-call text-backs and quote follow-ups. Owner-led shops prioritize fast request-to-payment workflows over complex enterprise suites.',
         detail: [
@@ -683,61 +704,109 @@
     ];
 
     let worldNews = [...WORLD_NEWS];
+    let mobileView = 'guides';
+
+    function setMobileView(view) {
+      mobileView = view;
+      const gSec = document.getElementById('guides-section');
+      const nSec = document.getElementById('news-section');
+      const gBtn = document.getElementById('mobileTabGuides');
+      const nBtn = document.getElementById('mobileTabNews');
+      if (!gSec || !nSec || !gBtn || !nBtn) return;
+
+      if (view === 'guides') {
+        gSec.classList.remove('hidden');
+        nSec.classList.add('hidden');
+        gBtn.className = 'flex-1 py-2 px-3 rounded-lg text-xs font-semibold bg-emerald-800 text-white transition';
+        nBtn.className = 'flex-1 py-2 px-3 rounded-lg text-xs font-semibold text-slate-600 hover:bg-stone-100 transition';
+      } else {
+        gSec.classList.add('hidden');
+        nSec.classList.remove('hidden');
+        nBtn.className = 'flex-1 py-2 px-3 rounded-lg text-xs font-semibold bg-emerald-800 text-white transition';
+        gBtn.className = 'flex-1 py-2 px-3 rounded-lg text-xs font-semibold text-slate-600 hover:bg-stone-100 transition';
+      }
+    }
 
     function renderNewsCards() {
       const grid = document.getElementById('newsGrid');
+      const emptyNews = document.getElementById('emptyNews');
       if (!grid) return;
-      const filteredNews = activeCategory === 'All'
-        ? worldNews
-        : worldNews.filter(n => n.category === activeCategory);
-      const list = filteredNews.length ? filteredNews : worldNews;
 
-      grid.innerHTML = list.map((n, idx) => `
-        <article class="animate-card bg-white border border-stone-200 rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between gap-4">
-          <div class="space-y-2.5">
-            <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
-              <span class="px-2.5 py-0.5 rounded-full font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">${n.category}</span>
-              <span class="text-slate-500 font-medium">Source: <strong class="text-slate-700">${n.source}</strong></span>
+      const q = searchQuery.trim().toLowerCase();
+      const filteredNews = worldNews.filter(n => {
+        const catMatch = activeCategory === 'All' || n.category === activeCategory;
+        const textMatch = !q || [n.title, n.summary, n.source, n.category].join(' ').toLowerCase().includes(q);
+        return catMatch && textMatch;
+      });
+
+      const countLbl = document.getElementById('newsCountLabel');
+      const mobCount = document.getElementById('mobileNewsCount');
+      if (countLbl) countLbl.textContent = `${filteredNews.length} stor${filteredNews.length === 1 ? 'y' : 'ies'}`;
+      if (mobCount) mobCount.textContent = String(filteredNews.length);
+
+      if (filteredNews.length === 0) {
+        grid.innerHTML = '';
+        if (emptyNews) emptyNews.classList.remove('hidden');
+        return;
+      }
+      if (emptyNews) emptyNews.classList.add('hidden');
+
+      grid.innerHTML = filteredNews.map(n => {
+        const relatedBtn = n.relatedGuideId
+          ? `<button type="button" data-guide-id="${n.relatedGuideId}" class="open-related-guide text-xs font-semibold text-slate-700 hover:text-emerald-800 transition">See Guide &rarr;</button>`
+          : '';
+        return `
+        <article class="animate-card bg-white border border-stone-200 rounded-2xl p-4 sm:p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between gap-3">
+          <div class="space-y-2">
+            <div class="flex flex-wrap items-center justify-between gap-1.5 text-[11px]">
+              <span class="px-2 py-0.5 rounded-full font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">${n.category}</span>
+              <span class="text-slate-500 font-medium">${n.source} &bull; ${n.date || 'Nov 2026'}</span>
             </div>
-            <h3 class="font-serif-editorial text-lg sm:text-xl font-bold text-slate-900 leading-snug">${n.title}</h3>
-            <p class="text-sm text-slate-600 leading-relaxed">${n.summary}</p>
+            <h3 class="font-serif-editorial text-lg font-bold text-slate-900 leading-snug">${n.title}</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">${n.summary}</p>
           </div>
-          <div class="pt-3 border-t border-stone-100 flex items-center justify-between gap-3">
-            <a href="${n.url}" target="_blank" rel="noopener noreferrer" class="text-xs font-medium text-slate-500 hover:text-emerald-800 underline truncate">
-              ${n.source} &nearr;
-            </a>
-            <button type="button" data-news-idx="${worldNews.indexOf(n)}" class="read-news-btn text-sm font-semibold text-emerald-800 hover:text-emerald-950 shrink-0">
+          <div class="pt-2.5 border-t border-stone-100 flex items-center justify-between gap-2">
+            ${relatedBtn}
+            <button type="button" data-news-idx="${worldNews.indexOf(n)}" class="read-news-btn text-xs sm:text-sm font-semibold text-emerald-800 hover:text-emerald-950 ml-auto shrink-0">
               Read &rarr;
             </button>
           </div>
-        </article>
-      `).join('');
+        </article>`;
+      }).join('');
     }
 
     function openNewsModal(idx) {
       const n = worldNews[idx];
       if (!n) return;
-      document.getElementById('modalCategory').textContent = `World & Industry News • ${n.category} • Source: ${n.source}`;
+      document.getElementById('modalCategory').textContent = `World News • ${n.category} • ${n.source} (${n.date || 'Nov 2026'})`;
       const paragraphs = Array.isArray(n.detail) && n.detail.length ? n.detail : [n.summary];
       document.getElementById('modalContent').innerHTML = `
         <h2 class="font-serif-editorial text-2xl sm:text-3xl font-bold text-slate-900 leading-tight">${n.title}</h2>
-        <div class="text-xs font-medium text-slate-500">Verified Source: <span class="text-slate-800 font-semibold">${n.source}</span></div>
+        <div class="text-xs font-medium text-slate-500">Verified Source: <span class="text-slate-800 font-semibold">${n.source}</span> &bull; ${n.date || 'Nov 2026'}</div>
         <div class="space-y-4 text-slate-700 leading-relaxed text-sm sm:text-base">
           <p class="font-medium text-slate-800">${n.summary}</p>
           ${paragraphs.map(p => `<p>${p}</p>`).join('')}
         </div>
-        <div class="pt-4 border-t border-stone-200">
+        <div class="pt-4 border-t border-stone-200 flex flex-wrap gap-3">
           <a href="${n.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-800 text-white text-sm font-semibold hover:bg-emerald-900 transition">
             Read Full Report at ${n.source} &nearr;
           </a>
+          ${n.relatedGuideId ? `<button type="button" id="modalRelatedGuideBtn" data-guide-id="${n.relatedGuideId}" class="px-4 py-2 rounded-xl border border-stone-300 text-slate-800 text-sm font-semibold hover:bg-stone-100 transition">Open Related Guide &rarr;</button>` : ''}
         </div>
       `;
       document.getElementById('articleModal').classList.remove('hidden');
+      const relBtn = document.getElementById('modalRelatedGuideBtn');
+      if (relBtn) relBtn.addEventListener('click', () => openArticleModal(relBtn.dataset.guideId));
     }
 
+    document.getElementById('mobileTabGuides').addEventListener('click', () => setMobileView('guides'));
+    document.getElementById('mobileTabNews').addEventListener('click', () => setMobileView('news'));
+
     document.getElementById('newsGrid').addEventListener('click', e => {
-      const btn = e.target.closest('.read-news-btn');
-      if (btn) openNewsModal(Number(btn.dataset.newsIdx));
+      const newsBtn = e.target.closest('.read-news-btn');
+      if (newsBtn) return openNewsModal(Number(newsBtn.dataset.newsIdx));
+      const guideBtn = e.target.closest('.open-related-guide');
+      if (guideBtn) openArticleModal(guideBtn.dataset.guideId);
     });
 
     async function loadLiveArticles() {

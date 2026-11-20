@@ -3,6 +3,8 @@
     "id": "news-epa-pfas-2026",
     "category": "Water & Air",
     "source": "U.S. EPA",
+    "date": "Nov 2026",
+    "relatedGuideId": "pfas-water-filter-guide-2026",
     "title": "EPA Upholds 4 ppt PFOA & PFOS Drinking Water Limits While Proposing 2031 Extension",
     "summary": "The U.S. Environmental Protection Agency proposed upholding its strict 4 parts-per-trillion federal limits for PFOA and PFOS in drinking water. At the same time, the agency proposed giving public water utilities two extra years—until 2031—to meet full compliance.",
     "detail": [
@@ -15,6 +17,8 @@
     "id": "news-mini-split-2026",
     "category": "Home Utility",
     "source": "Coherent Market Insights",
+    "date": "Nov 2026",
+    "relatedGuideId": "mini-split-btu-sizing-maintenance",
     "title": "Global Ductless Mini-Split HVAC Market Reaches $19.4 Billion in 2026",
     "summary": "Industry analysis estimates the global ductless mini-split market at $19.40 billion in 2026, driven by residential heat-pump retrofits. Single-zone systems now represent roughly 59.7% of total market share as homeowners target room-by-room efficiency.",
     "detail": [
@@ -27,6 +31,8 @@
     "id": "news-einvoicing-2026",
     "category": "Finance & Ops",
     "source": "Taxually",
+    "date": "Nov 2026",
+    "relatedGuideId": "automated-invoice-reminders-2026",
     "title": "Mandatory B2B E-Invoicing Expands Across Europe Ahead of 2027 Rollouts",
     "summary": "As of November 2026, mandatory B2B electronic invoicing is live in France, Poland, Belgium, Italy, Romania, Croatia, and Greece. Germany and Spain will follow with staggered small-business deadlines starting in 2027 and 2028.",
     "detail": [
@@ -39,6 +45,8 @@
     "id": "news-trades-crm-2026",
     "category": "Trades & B2B SaaS",
     "source": "SMBcrm",
+    "date": "Nov 2026",
+    "relatedGuideId": "field-service-job-costing-2026",
     "title": "HVAC & Service Contractors Shift to Automated Quote Follow-Up & Mobile CRMs",
     "summary": "Field-service contractors in 2026 are increasingly replacing paper estimates with mobile CRMs that automate missed-call text-backs and quote follow-ups. Owner-led shops prioritize fast request-to-payment workflows over complex enterprise suites.",
     "detail": [
