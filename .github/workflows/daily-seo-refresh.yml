@@ -1,4 +1,4 @@
-name: Daily SEO Article Refresh
+name: Daily SEO Article & News Refresh
 
 on:
   schedule:
@@ -9,13 +9,13 @@ permissions:
   contents: write
 
 jobs:
-  refresh-articles:
+  refresh-site:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Generate new SEO article via Gemini API
+      - name: Refresh articles.json and news.json via Gemini API
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
@@ -27,53 +27,71 @@ jobs:
           import json, os, urllib.error, urllib.request
 
           key = os.environ['GEMINI_API_KEY']
+
+          def call_gemini(prompt, use_search=False):
+              payload = {"contents": [{"parts": [{"text": prompt}]}]}
+              if use_search:
+                  payload["tools"] = [{"google_search": {}}]
+              else:
+                  payload["generationConfig"] = {"responseMimeType": "application/json"}
+              req = urllib.request.Request(
+                  f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={key}",
+                  data=json.dumps(payload).encode('utf-8'),
+                  headers={"Content-Type": "application/json"},
+                  method="POST"
+              )
+              try:
+                  with urllib.request.urlopen(req, timeout=45) as resp:
+                      data = json.loads(resp.read().decode('utf-8'))
+              except urllib.error.HTTPError as e:
+                  print("Gemini API HTTP error:", e.code, e.read().decode('utf-8', errors='replace'))
+                  raise
+              text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
+              if "```" in text:
+                  text = text.split("```", 1)[1]
+                  if text.startswith("json"):
+                      text = text[4:]
+                  text = text.rsplit("```", 1)[0].strip()
+              return json.loads(text)
+
+          # 1. Refresh articles.json
           with open('articles.json', 'r', encoding='utf-8') as f:
               articles = json.load(f)
-
           existing_titles = [a.get('title', '') for a in articles[:10]]
-          prompt = (
+          art_prompt = (
               "Generate 1 new practical, SEO-optimized article JSON object for PracticalUtility on a high-intent boring niche "
               "(HVAC maintenance, water filtration, trades software, or SMB invoicing). Avoid these titles: "
               + "; ".join(existing_titles)
               + ". Return ONLY a single valid JSON object with keys: id, title, category (one of: Home Utility, Water & Air, Trades & B2B SaaS, Finance & Ops), "
               "keyword, readTime, partner, partnerUrl, summary, body (array of 3 detailed paragraphs), sources (array of {label, url})."
           )
-
-          payload = {
-              "contents": [{"parts": [{"text": prompt}]}],
-              "generationConfig": {"responseMimeType": "application/json"}
-          }
-          req = urllib.request.Request(
-              f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={key}",
-              data=json.dumps(payload).encode('utf-8'),
-              headers={"Content-Type": "application/json"},
-              method="POST"
-          )
-          try:
-              with urllib.request.urlopen(req, timeout=45) as resp:
-                  data = json.loads(resp.read().decode('utf-8'))
-          except urllib.error.HTTPError as e:
-              print("Gemini API HTTP error:", e.code, e.read().decode('utf-8', errors='replace'))
-              raise
-
-          text = data["candidates"][0]["content"]["parts"][0]["text"].strip()
-          if text.startswith("```"):
-              text = text.split("\n", 1)[1].rsplit("```", 1)[0].strip()
-          new_art = json.loads(text)
+          new_art = call_gemini(art_prompt, use_search=False)
           if isinstance(new_art, list):
               new_art = new_art[0]
-          if not isinstance(new_art, dict) or "title" not in new_art:
-              raise ValueError(f"Unexpected JSON shape: {new_art}")
+          if isinstance(new_art, dict) and "title" in new_art:
+              articles.insert(0, new_art)
+              with open('articles.json', 'w', encoding='utf-8') as f:
+                  json.dump(articles, f, indent=2)
+              print("Added article:", new_art["title"])
 
-          articles.insert(0, new_art)
-          with open('articles.json', 'w', encoding='utf-8') as f:
-              json.dump(articles, f, indent=2)
-          print("Added new article:", new_art["title"])
+          # 2. Refresh news.json every 24h
+          news_prompt = (
+              "Search for 4 recent, real industry news headlines (1 each for: Water & Air, Home Utility, Finance & Ops, Trades & B2B SaaS). "
+              "Return ONLY a JSON array of 4 objects, each with keys: category, title, url (the real https source URL)."
+          )
+          try:
+              fresh_news = call_gemini(news_prompt, use_search=True)
+              if isinstance(fresh_news, list) and len(fresh_news) > 0:
+                  with open('news.json', 'w', encoding='utf-8') as f:
+                      json.dump(fresh_news, f, indent=2)
+                  print("Updated news.json with", len(fresh_news), "headlines")
+          except Exception as err:
+              print("Skipped news.json update:", err)
           PY
 
-      - name: Commit updated articles.json
+      - name: Commit updated articles.json and news.json
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add articles.json
-          git diff --cached --quiet || (git commit -m "Daily SEO article refresh" && git push)
+          git add articles.json news.json
+          git diff --cached --quiet || (git commit -m "Daily SEO articles and news refresh" && git push)
