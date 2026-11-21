@@ -26,7 +26,9 @@
         "label": "Water Softener vs Salt-Free Conditioner (2026 Guide) \u2014 RKIN",
         "url": "https://rkin.com/blogs/news/water-softener-vs-salt-free-conditioner-2025-guide"
       }
-    ]
+    ],
+    "image": "images/water-filter.jpg",
+    "updated": "2026-11-20"
   },
   {
     "id": "basement-dehumidifier-sizing-2026",
@@ -55,7 +57,9 @@
         "label": "Practical Guide to Basement Dehumidifiers \u2014 Michigan Basements",
         "url": "https://michiganbasements.com/resources/blog/a-practical-guide-to-basement-dehumidifiers/"
       }
-    ]
+    ],
+    "image": "images/hvac-air.jpg",
+    "updated": "2026-11-20"
   },
   {
     "id": "field-service-job-costing-2026",
@@ -88,7 +92,9 @@
         "label": "ClockShark Alternatives & Job Costing (2026) \u2014 Homebase",
         "url": "https://www.joinhomebase.com/blog/clockshark-alternatives"
       }
-    ]
+    ],
+    "image": "images/trades-finance.jpg",
+    "updated": "2026-11-20"
   },
   {
     "id": "pfas-water-filter-guide-2026",
@@ -117,7 +123,9 @@
         "label": "Best Whole-House Water Filters 2026 \u2014 Dr. Axe",
         "url": "https://draxe.com/healthy-home/best-whole-house-water-filters/"
       }
-    ]
+    ],
+    "image": "images/water-filter.jpg",
+    "updated": "2026-11-20"
   },
   {
     "id": "mini-split-btu-sizing-maintenance",
@@ -146,7 +154,9 @@
         "label": "Ductless Mini Split Maintenance \u2014 Carrier",
         "url": "https://www.carrier.com/us/en/residential/hvac-resources/ductless-mini-splits/mini-split-maintenance/"
       }
-    ]
+    ],
+    "image": "images/hvac-air.jpg",
+    "updated": "2026-11-20"
   },
   {
     "id": "automated-invoice-reminders-2026",
@@ -175,7 +185,9 @@
         "label": "Automated Payment Reminder Tools Comparison \u2014 WorksBuddy AI",
         "url": "https://worksbuddy.ai/blogs/6-best-automated-payment-reminder-tools-in-2026-compared-by-trigger-type-and-automation-depth"
       }
-    ]
+    ],
+    "image": "images/trades-finance.jpg",
+    "updated": "2026-11-20"
   },
   {
     "id": "hvac-merv-filters",
@@ -196,7 +208,9 @@
         "label": "Filterbuy Partner Program ($30/new customer)",
         "url": "https://filterbuy.com/partner/"
       }
-    ]
+    ],
+    "image": "images/hvac-air.jpg",
+    "updated": "2026-11-20"
   },
   {
     "id": "countertop-water-filtration",
@@ -221,7 +235,9 @@
         "label": "Berkey Filters Affiliate Program (15% CPS)",
         "url": "https://www.postaffiliatepro.com/affiliate-program-directory/berkey-filters-affiliate-program/"
       }
-    ]
+    ],
+    "image": "images/water-filter.jpg",
+    "updated": "2026-11-20"
   },
   {
     "id": "trades-field-service-software",
@@ -250,7 +266,9 @@
         "label": "ServiceTitan Referrals",
         "url": "https://www.servicetitan.com/referrals"
       }
-    ]
+    ],
+    "image": "images/trades-finance.jpg",
+    "updated": "2026-11-20"
   },
   {
     "id": "smb-accounting-invoicing",
@@ -279,6 +297,8 @@
         "label": "FreshBooks Affiliate Overview",
         "url": "https://affiliate.watch/affiliate/freshbooks"
       }
-    ]
+    ],
+    "image": "images/trades-finance.jpg",
+    "updated": "2026-11-20"
   }
 ]
