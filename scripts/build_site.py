@@ -84,7 +84,7 @@ def render_guide_page(article, all_articles):
         verdict_html = f"""
       <div class="my-6 p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <p class="text-xs font-semibold uppercase tracking-wider text-emerald-800">Top Recommended Option</p>
+          <p class="text-sm font-semibold uppercase tracking-wider text-emerald-800">Top Recommended Option</p>
           <p class="text-base font-bold text-slate-900 mt-0.5">{esc(partner)}</p>
         </div>
         <a href="{esc(partner_url)}" target="_blank" rel="noopener noreferrer sponsored"
@@ -121,6 +121,7 @@ def render_guide_page(article, all_articles):
   <meta name="description" content="{esc(summary)}" />
   <meta name="keywords" content="{esc(kw)}" />
   <link rel="canonical" href="{esc(canonical)}" />
+  <link rel="icon" type="image/svg+xml" href="../images/logo.svg" />
   <link rel="icon" type="image/png" href="../images/logo.png" />
   <meta property="og:title" content="{esc(title)}" />
   <meta property="og:description" content="{esc(summary)}" />
@@ -141,7 +142,7 @@ def render_guide_page(article, all_articles):
   <header class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-stone-200">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
       <a href="../index.html" class="flex items-center gap-2.5">
-        <img src="../images/logo.png" alt="PracticalUtility Logo" class="w-8 h-8 rounded-lg object-cover border border-stone-200 shrink-0" />
+        <img src="../images/logo.svg" alt="PracticalUtility Logo" class="w-9 h-9 rounded-xl shrink-0 shadow-sm" />
         <span class="font-serif-editorial font-bold text-lg text-slate-900">PracticalUtility</span>
       </a>
       <nav class="flex items-center gap-4 text-sm font-medium">
@@ -152,14 +153,14 @@ def render_guide_page(article, all_articles):
   </header>
 
   <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-8">
-    <nav aria-label="Breadcrumb" class="text-xs text-slate-500 mb-4 flex items-center gap-1.5 flex-wrap">
+    <nav aria-label="Breadcrumb" class="text-sm text-slate-600 mb-4 flex items-center gap-1.5 flex-wrap">
       <a href="../index.html" class="hover:text-emerald-800 underline">Home</a>
       <span>/</span>
       <span>{esc(cat)}</span>
     </nav>
 
     <article class="bg-white border border-stone-200 rounded-2xl p-6 sm:p-10 shadow-sm">
-      <div class="flex flex-wrap items-center gap-2 text-xs text-slate-500 mb-3">
+      <div class="flex flex-wrap items-center gap-2 text-sm text-slate-600 mb-3">
         <span class="px-2.5 py-0.5 rounded-full font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">{esc(cat)}</span>
         <span>&bull;</span>
         <span>{esc(read_time)}</span>
@@ -170,7 +171,7 @@ def render_guide_page(article, all_articles):
       <h1 class="font-serif-editorial text-3xl sm:text-4xl font-bold text-slate-900 leading-tight">{esc(title)}</h1>
       <p class="mt-3 text-base sm:text-lg text-slate-600 leading-relaxed">{esc(summary)}</p>
 
-      <img src="../{esc(img)}" alt="{esc(title)}" loading="lazy" onerror="this.style.display='none'" class="w-full h-52 sm:h-64 object-cover rounded-xl mt-5 bg-stone-100" />
+      <div class="w-full overflow-hidden rounded-xl mt-5 bg-stone-100"><img src="../{esc(img)}" alt="{esc(title)}" loading="lazy" onerror="this.parentElement.style.display='none'" class="block w-full h-56 sm:h-72 object-cover" /></div>
       {verdict_html}
 
       <div class="mt-6 space-y-5 text-slate-700 leading-relaxed text-base">
@@ -196,7 +197,7 @@ def render_guide_page(article, all_articles):
   </main>
 
   <footer class="border-t border-stone-200 bg-white py-5 mt-12">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-slate-600">
       <p>&copy; 2026 PracticalUtility &bull; <a href="../about.html" class="underline">About &amp; Affiliate Disclosure</a></p>
       <p>We may earn a commission from partner links at no extra cost to you.</p>
     </div>
@@ -215,6 +216,7 @@ def render_about_page():
   <title>About &amp; Editorial Disclosure | PracticalUtility</title>
   <meta name="description" content="About PracticalUtility, our research methodology for home systems and small-business software, and our FTC affiliate disclosure." />
   <link rel="canonical" href="{BASE_URL}/about.html" />
+  <link rel="icon" type="image/svg+xml" href="./images/logo.svg" />
   <link rel="icon" type="image/png" href="./images/logo.png" />
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,600;6..72,700&display=swap" rel="stylesheet" />
@@ -227,7 +229,7 @@ def render_about_page():
   <header class="bg-white border-b border-stone-200">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <a href="./index.html" class="flex items-center gap-2.5">
-        <img src="./images/logo.png" alt="PracticalUtility Logo" class="w-8 h-8 rounded-lg object-cover border border-stone-200 shrink-0" />
+        <img src="./images/logo.svg" alt="PracticalUtility Logo" class="w-9 h-9 rounded-xl shrink-0 shadow-sm" />
         <span class="font-serif-editorial font-bold text-lg text-slate-900">PracticalUtility</span>
       </a>
       <a href="./index.html" class="text-sm font-medium text-emerald-800 hover:underline">&larr; Back to Guides</a>
@@ -273,7 +275,7 @@ def render_index_page(articles, news):
               <p class="mt-2.5 text-base text-slate-700 leading-relaxed line-clamp-3">{esc(a.get('summary', ''))}</p>
             </div>
             <div class="pt-3 border-t border-stone-100 flex items-center justify-between gap-2">
-              <span class="text-sm bg-stone-100 text-slate-700 px-3 py-1 rounded-full truncate max-w-[60%]">{esc(a.get('keyword', ''))}</span>
+              <span class="text-sm text-slate-500">Updated {esc(a.get('updated', '2026'))}</span>
               <a href="./guides/{esc(a['id'])}.html" class="text-sm font-semibold text-emerald-800 hover:text-emerald-950 shrink-0">Read Guide &rarr;</a>
             </div>
           </div>
@@ -290,6 +292,7 @@ def render_index_page(articles, news):
   <title>PracticalUtility — Home Systems, Filtration &amp; Small-Business Software Guides</title>
   <meta name="description" content="PracticalUtility publishes search-focused buying and maintenance guides for HVAC air filters, water purification, field-service trades software, and small-business invoicing." />
   <link rel="canonical" href="{BASE_URL}/" />
+  <link rel="icon" type="image/svg+xml" href="./images/logo.svg" />
   <link rel="icon" type="image/png" href="./images/logo.png" />
   <meta property="og:title" content="PracticalUtility — Essential Systems &amp; B2B Guides" />
   <meta property="og:description" content="In-depth, high-intent guides covering HVAC filtration, water purification, trades software, and small-business invoicing." />
@@ -313,7 +316,7 @@ def render_index_page(articles, news):
   <header class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-stone-200">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
       <div class="flex items-center gap-3 min-w-0">
-        <img src="./images/logo.png" alt="PracticalUtility Logo" class="w-9 h-9 rounded-lg object-cover border border-stone-200 shrink-0" />
+        <img src="./images/logo.svg" alt="PracticalUtility Logo" class="w-10 h-10 rounded-xl shrink-0 shadow-sm" />
         <div class="min-w-0">
           <a href="./index.html" id="brandHomeBtn" class="font-serif-editorial font-bold text-xl tracking-tight text-slate-900 hover:text-emerald-800 transition truncate block">PracticalUtility</a>
           <p class="text-xs text-slate-600 hidden sm:block">Everyday Operations, Home Systems &amp; B2B Guides</p>
@@ -388,7 +391,7 @@ def render_index_page(articles, news):
     <section id="guides-section" class="space-y-4">
       <div class="flex items-baseline justify-between gap-2">
         <h2 class="font-serif-editorial text-2xl font-bold text-slate-900">Practical Guides</h2>
-        <span id="guidesCountLabel" class="text-xs text-slate-500">{len(articles)} guides</span>
+        <span id="guidesCountLabel" class="text-sm text-slate-600">{len(articles)} guides</span>
       </div>
       <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {initial_cards}
@@ -402,7 +405,7 @@ def render_index_page(articles, news):
     <section id="news-section" class="hidden space-y-4">
       <div class="flex items-baseline justify-between gap-2">
         <h2 class="font-serif-editorial text-2xl font-bold text-slate-900">World &amp; Industry News</h2>
-        <span id="newsCountLabel" class="text-xs text-slate-500">{len(news)} stories</span>
+        <span id="newsCountLabel" class="text-sm text-slate-600">{len(news)} stories</span>
       </div>
       <div id="newsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
       <div id="emptyNews" class="hidden bg-white border border-stone-200 rounded-2xl p-8 text-center">
@@ -423,7 +426,7 @@ def render_index_page(articles, news):
   </div>
 
   <footer class="border-t border-stone-200 bg-white py-5 mt-10">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-slate-600">
       <p>&copy; 2026 PracticalUtility &bull; <a href="./about.html" class="underline hover:text-emerald-800">About &amp; Editorial Policy</a></p>
       <p>Affiliate Disclosure: Guides may include verified partner links that earn commissions at no extra cost to readers.</p>
     </div>
@@ -488,7 +491,7 @@ def render_index_page(articles, news):
               <p class="mt-2.5 text-base text-slate-700 leading-relaxed line-clamp-3">${{a.summary}}</p>
             </div>
             <div class="pt-3 border-t border-stone-100 flex items-center justify-between gap-2">
-              <span class="text-sm bg-stone-100 text-slate-700 px-3 py-1 rounded-full truncate max-w-[60%]">${{a.keyword}}</span>
+              <span class="text-sm text-slate-500">Updated ${{a.updated || '2026'}}</span>
               <a href="./guides/${{a.id}}.html" class="text-sm font-semibold text-emerald-800 hover:text-emerald-950 shrink-0">Read Guide &rarr;</a>
             </div>
           </div>
@@ -612,6 +615,40 @@ def render_index_page(articles, news):
 
     renderDrawerCategories();
     renderNewsCards();
+
+    // Dynamically refresh articles & news from live JSON files when hosted over HTTP/HTTPS
+    (async function syncLiveContent() {{
+      if (window.location.protocol === 'file:') return;
+      try {{
+        const ts = Date.now();
+        const [aRes, nRes] = await Promise.all([
+          fetch(`./articles.json?v=${{ts}}`, {{ cache: 'no-cache' }}),
+          fetch(`./news.json?v=${{ts}}`, {{ cache: 'no-cache' }})
+        ]);
+        let changed = false;
+        if (aRes.ok) {{
+          const liveArticles = await aRes.json();
+          if (Array.isArray(liveArticles) && liveArticles.length > 0) {{
+            articles = liveArticles;
+            changed = true;
+          }}
+        }}
+        if (nRes.ok) {{
+          const liveNews = await nRes.json();
+          if (Array.isArray(liveNews) && liveNews.length > 0) {{
+            worldNews = liveNews;
+            changed = true;
+          }}
+        }}
+        if (changed) {{
+          renderDrawerCategories();
+          renderArticles();
+          renderNewsCards();
+        }}
+      }} catch (_) {{
+        // Keep pre-rendered static content as fallback
+      }}
+    }})();
   </script>
 </body>
 </html>
