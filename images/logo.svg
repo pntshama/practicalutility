@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#065F46"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#bg)"/>
+  <!-- House roofline -->
+  <path d="M46 118L128 50L210 118" stroke="#FFFFFF" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Water drop inside roofline -->
+  <path d="M128 96C128 96 86 140 86 168C86 191.2 104.8 210 128 210C151.2 210 170 191.2 170 168C170 140 128 96 128 96Z" fill="#34D399"/>
+  <!-- Inner highlight droplet -->
+  <path d="M114 166C114 176 120 184 128 186" stroke="#ECFDF5" stroke-width="8" stroke-linecap="round"/>
+</svg>
