@@ -1,4 +1,4 @@
-name: Daily SEO Article & News Refresh
+name: Daily Trending SEO & Static Site Build
 
 on:
   schedule:
@@ -9,13 +9,13 @@ permissions:
   contents: write
 
 jobs:
-  refresh-site:
+  refresh-and-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Refresh articles.json and news.json via Gemini API
+      - name: Fetch trending article & current world news via Gemini + Google Search
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
@@ -24,16 +24,16 @@ jobs:
             exit 1
           fi
           python3 - << 'PY'
-          import json, os, urllib.error, urllib.request
+          import datetime, json, os, re, urllib.error, urllib.request
 
           key = os.environ['GEMINI_API_KEY']
+          today = datetime.date.today().isoformat()
 
-          def call_gemini(prompt, use_search=False):
-              payload = {"contents": [{"parts": [{"text": prompt}]}]}
-              if use_search:
-                  payload["tools"] = [{"google_search": {}}]
-              else:
-                  payload["generationConfig"] = {"responseMimeType": "application/json"}
+          def call_gemini_search(prompt):
+              payload = {
+                  "contents": [{"parts": [{"text": prompt}]}],
+                  "tools": [{"google_search": {}}]
+              }
               req = urllib.request.Request(
                   f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={key}",
                   data=json.dumps(payload).encode('utf-8'),
@@ -41,7 +41,7 @@ jobs:
                   method="POST"
               )
               try:
-                  with urllib.request.urlopen(req, timeout=45) as resp:
+                  with urllib.request.urlopen(req, timeout=60) as resp:
                       data = json.loads(resp.read().decode('utf-8'))
               except urllib.error.HTTPError as e:
                   print("Gemini API HTTP error:", e.code, e.read().decode('utf-8', errors='replace'))
@@ -54,45 +54,57 @@ jobs:
                   text = text.rsplit("```", 1)[0].strip()
               return json.loads(text)
 
-          # 1. Refresh articles.json
+          # 1. Pick 1 currently trending boring-niche topic via live Google Search
           with open('articles.json', 'r', encoding='utf-8') as f:
               articles = json.load(f)
-          existing_titles = [a.get('title', '') for a in articles[:10]]
+          existing_titles = [a.get('title', '') for a in articles[:12]]
           art_prompt = (
-              "Generate 1 new practical, SEO-optimized article JSON object for PracticalUtility on a high-intent boring niche "
-              "(HVAC maintenance, water filtration, trades software, or SMB invoicing). Avoid these titles: "
-              + "; ".join(existing_titles)
-              + ". Return ONLY a single valid JSON object with keys: id, title, category (one of: Home Utility, Water & Air, Trades & B2B SaaS, Finance & Ops), "
-              "keyword, readTime, partner, partnerUrl, summary, body (array of 3 detailed paragraphs), sources (array of {label, url})."
+              f"Today is {today}. Use Google Search to find 1 currently trending, high-search-volume practical topic "
+              "in Home Utility (HVAC, dehumidifiers, mini-splits), Water & Air filtration, Trades & B2B SaaS, or Finance & Ops invoicing. "
+              "Avoid duplicating these existing titles: " + "; ".join(existing_titles) + ". "
+              "If the topic is Trades & B2B SaaS, feature QuoteIQ with partnerUrl 'https://admin-quoteiq.web.app/register?via=puneet-sharma' and promo code YHOFL8W1 ($1 USD off). "
+              "Return ONLY a valid JSON object with keys: id (kebab-case slug), title, category (Home Utility | Water & Air | Trades & B2B SaaS | Finance & Ops), "
+              "keyword, readTime, updated (YYYY-MM-DD), partner, partnerUrl, summary (1-2 sentences), body (array of 3 detailed practical paragraphs), "
+              "sources (array of {label, url} using real verified https URLs)."
           )
-          new_art = call_gemini(art_prompt, use_search=False)
+          new_art = call_gemini_search(art_prompt)
           if isinstance(new_art, list):
               new_art = new_art[0]
-          if isinstance(new_art, dict) and "title" in new_art:
-              articles.insert(0, new_art)
-              with open('articles.json', 'w', encoding='utf-8') as f:
-                  json.dump(articles, f, indent=2)
-              print("Added article:", new_art["title"])
+          if isinstance(new_art, dict) and new_art.get("title"):
+              slug = re.sub(r'[^a-z0-9-]+', '-', new_art.get('id', new_art['title']).lower()).strip('-')[:60]
+              new_art['id'] = slug or f"guide-{today}"
+              new_art['updated'] = today
+              if not any(a['id'] == new_art['id'] for a in articles):
+                  articles.insert(0, new_art)
+                  with open('articles.json', 'w', encoding='utf-8') as f:
+                      json.dump(articles, f, indent=2)
+                  print("Added trending article:", new_art["title"])
 
-          # 2. Refresh news.json every 24h
+          # 2. Fetch 4 current world & industry news stories via live Google Search
+          valid_ids = [a['id'] for a in articles[:8]]
           news_prompt = (
-              "Search for 4 recent, real industry news stories from reputable sources (1 each for: Water & Air, Home Utility, Finance & Ops, Trades & B2B SaaS). "
-              "Return ONLY a JSON array of 4 objects, each with keys: id, category, source (publisher name), title, "
-              "summary (exactly 2 clear sentences), detail (array of 2 concise paragraphs expanding on the story), and url (the real https source URL)."
+              f"Today is {today}. Use Google Search to find 4 recent, legitimate industry news stories "
+              "(1 each for: Water & Air, Home Utility, Finance & Ops, Trades & B2B SaaS). "
+              f"For each story, optionally pick the closest relatedGuideId from: {valid_ids}. "
+              "Return ONLY a valid JSON array of 4 objects with keys: id, category, source (publisher name), date (e.g. 'Nov 2026'), "
+              "relatedGuideId, title, summary (exactly 2 clear sentences), detail (array of 2 concise paragraphs), and url (verified https URL)."
           )
           try:
-              fresh_news = call_gemini(news_prompt, use_search=True)
+              fresh_news = call_gemini_search(news_prompt)
               if isinstance(fresh_news, list) and len(fresh_news) > 0:
                   with open('news.json', 'w', encoding='utf-8') as f:
                       json.dump(fresh_news, f, indent=2)
-                  print("Updated news.json with", len(fresh_news), "headlines")
+                  print("Updated news.json with", len(fresh_news), "current stories")
           except Exception as err:
               print("Skipped news.json update:", err)
           PY
 
-      - name: Commit updated articles.json and news.json
+      - name: Rebuild static guide pages, index.html & sitemap.xml
+        run: python3 scripts/build_site.py
+
+      - name: Commit & publish updated site
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add articles.json news.json
-          git diff --cached --quiet || (git commit -m "Daily SEO articles and news refresh" && git push)
+          git add articles.json news.json index.html about.html guides/ sitemap.xml robots.txt
+          git diff --cached --quiet || (git commit -m "Daily trending SEO refresh and static rebuild" && git push)
