@@ -1,5 +1,106 @@
 [
   {
+    "id": "sediment-filter-micron-size-2026",
+    "title": "Whole-House Sediment Filter Micron Size: 5 vs. 20 Micron for City & Well Water (2026)",
+    "category": "Water & Air",
+    "keyword": "whole house sediment filter micron size 5 vs 20",
+    "readTime": "6 min read",
+    "updated": "2026-11-22",
+    "partner": "Waterdrop RO & Water Filtration Systems",
+    "partnerUrl": "https://www.waterdropfilter.com/",
+    "image": "images/water-filter.jpg",
+    "summary": "Choosing between a 5-micron and 20-micron whole-house sediment filter comes down to city vs. well water, pressure drop, and whether you run a two-stage pre-filter.",
+    "body": [
+      "A micron rating measures the smallest particle diameter a sediment cartridge can trap, where one micron equals one-millionth of a meter. A 20-micron cartridge catches coarse sand, visible dirt, and large rust flakes while preserving full household water pressure, whereas a 5-micron cartridge captures finer silt and rust particles before they reach appliance valves or carbon blocks.",
+      "For municipal city water with low particulate loads, a single 5-micron whole-house cartridge typically delivers clean clarity without noticeable flow restriction. For private well water or homes with older galvanized pipes, installing a 1-micron or 5-micron filter alone can clog within days—use a 20-to-50-micron coarse pre-filter in stage one followed by a 5-micron cartridge in stage two.",
+      "Also check whether a cartridge carries a nominal or absolute micron rating. Nominal ratings trap roughly 85% of particles at the stated size, while absolute ratings capture 99.9% or more—critical if you are protecting a downstream under-sink reverse osmosis membrane or UV sterilizer."
+    ],
+    "sources": [
+      {
+        "label": "How Many Microns Should Your Water Filter Be? — Fresh Water Systems",
+        "url": "https://www.freshwatersystems.com/blogs/blog/how-many-microns-should-your-water-filter-be"
+      },
+      {
+        "label": "Types of Sediment Filters: Choosing The Right Micron Ratings — RiverSoft",
+        "url": "https://theriversoft.com/blogs/sediment-filter/types-of-sediment-filters-choosing-the-right-micron-ratings-sizes-and-cartridges"
+      },
+      {
+        "label": "How Many Microns Should Your Water Filter Be? — Brother Filtration",
+        "url": "https://www.brotherfiltration.com/how-many-microns-should-your-water-filter-be/"
+      },
+      {
+        "label": "Waterdrop RO & Whole-House Filtration",
+        "url": "https://www.waterdropfilter.com/"
+      }
+    ]
+  },
+  {
+    "id": "furnace-humidifier-pad-replacement-2026",
+    "title": "Furnace Humidifier Pad Replacement Schedule: Hard Water Scale & Seasonal Care (2026)",
+    "category": "Home Utility",
+    "keyword": "furnace humidifier pad replacement schedule hard water",
+    "readTime": "5 min read",
+    "updated": "2026-11-22",
+    "partner": "Filterbuy HVAC Air Filters",
+    "partnerUrl": "https://filterbuy.com/",
+    "image": "images/hvac-air.jpg",
+    "summary": "Most furnace humidifier water panels need annual replacement before heating season, but homes with hard water or heavy winter runtime often require a mid-winter swap.",
+    "body": [
+      "Whole-house bypass and fan-powered humidifiers rely on an aluminum mesh or clay-coated evaporator pad (often called a water panel) to turn trickle water into indoor humidity. Major manufacturers including Honeywell, Bryant, and AprilAire recommend replacing standard pads (#10, #12, and #35) at least once per year at the start of the heating season, while high-capacity models like the AprilAire 45 require twice-per-season changes.",
+      "Hard water dramatically shortens evaporator pad life. As water evaporates across the mesh, calcium and magnesium stay behind as white, crusty mineral scale that blocks airflow and forces the solenoid to run longer. In hard-water regions, inspect the panel mid-winter and swap it every 3 to 6 months if the mesh feels stiff, chalky, or discolored.",
+      "Never try to wash or soak a disposable paper or clay-coated aluminum pad in vinegar—cleaning strips the wicking coating that spreads water evenly. Instead, match the exact replacement part number from your humidifier's data tag and pair the swap with your seasonal 1-inch or 4-inch furnace air filter change."
+    ],
+    "sources": [
+      {
+        "label": "How Often Replace Humidifier Water Panel? — Northern One Hour",
+        "url": "https://northernonehour.com/blog/humidifier-water-panel-replacement-how-often-minnesota/"
+      },
+      {
+        "label": "Which Whole-House Humidifier Pad Do You Need? — Discount Filter Store",
+        "url": "https://www.discountfilterstore.com/blogs/article/whole-house-humidifier-pad-guide"
+      },
+      {
+        "label": "All About Humidifier Filters: Water Panels — AprilAire",
+        "url": "https://www.aprilaire.com/blog/water-panels-need-to-be-changed-annually"
+      },
+      {
+        "label": "Filterbuy HVAC Air Filters",
+        "url": "https://filterbuy.com/"
+      }
+    ]
+  },
+  {
+    "id": "progress-billing-vs-milestone-invoicing-2026",
+    "title": "Progress Billing vs. Milestone Invoicing for Contractors: Cash Flow & Retainage (2026)",
+    "category": "Finance & Ops",
+    "keyword": "progress billing vs milestone invoicing contractors",
+    "readTime": "6 min read",
+    "updated": "2026-11-22",
+    "partner": "QuoteIQ Field Service Software (Promo Code: YHOFL8W1 — $1 Off)",
+    "partnerUrl": "https://admin-quoteiq.web.app/register?via=puneet-sharma",
+    "image": "images/trades-finance.jpg",
+    "summary": "Progress billing stabilizes monthly cash flow on multi-week jobs using a Schedule of Values, while milestone invoicing ties payouts to concrete, dispute-free deliverables.",
+    "body": [
+      "Progress billing issues invoices on a fixed cadence—typically bi-weekly or monthly—based on the estimated percentage of work completed against a Schedule of Values (SOV) plus approved change orders, minus prior payments and 5% to 10% retainage. Because payouts arrive on a predictable calendar schedule, progress billing prevents small contractors from self-financing payroll and material runs out of pocket.",
+      "Milestone invoicing is event-driven rather than calendar-driven: an invoice is triggered only when a specific, verifiable deliverable is 100% finished and signed off, such as slab pour, rough-in inspection, or final commissioning. This eliminates subjective arguments over whether a phase is 40% or 60% done, especially when contracts include a 10-business-day client approval window.",
+      "For jobs with heavy upfront material purchases, a hybrid structure works best: collect a 10% to 15% mobilization milestone upfront, bill remaining stages on a bi-weekly progress schedule or clear inspection milestones, and automate reminders in field-service software like QuoteIQ (code YHOFL8W1 for $1 off) so approved draws convert to paid cash without manual chasing."
+    ],
+    "sources": [
+      {
+        "label": "Progress vs. Milestone Billing: Key Differences — Contractor Foreman",
+        "url": "https://contractorforeman.com/progress-vs-milestone-billing-key-differences/"
+      },
+      {
+        "label": "Progress Payments in Construction: Milestone vs. Progress Billing — Knowify",
+        "url": "https://knowify.com/resources/milestone-vs-progress-billing/"
+      },
+      {
+        "label": "Try QuoteIQ (Use code YHOFL8W1 for $1 USD off)",
+        "url": "https://admin-quoteiq.web.app/register?via=puneet-sharma"
+      }
+    ]
+  },
+  {
     "id": "jobber-vs-zoho-fsm-quoteiq-pricing-2026",
     "title": "Jobber vs. Zoho FSM & QuoteIQ: 2026 Pricing & Invoicing Breakdown for Small Contractors",
     "category": "Trades & B2B SaaS",
