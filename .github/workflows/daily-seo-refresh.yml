@@ -69,9 +69,15 @@ jobs:
 
           def image_for(cat, aid):
               s = f"{cat} {aid}".lower()
-              if "water" in s or "pfas" in s or "softener" in s:
+              if "dehumidifier" in s or "mini-split" in s:
+                  return "images/dehumidifier-basement.jpg"
+              if "tankless" in s or "softener" in s or "sediment" in s:
+                  return "images/tankless-water-heater.jpg"
+              if "invoic" in s or "billing" in s or "accounting" in s or "job-costing" in s:
+                  return "images/invoicing-desk.jpg"
+              if "water" in s or "pfas" in s or "countertop" in s:
                   return "images/water-filter.jpg"
-              if "trade" in s or "saas" in s or "finance" in s or "invoic" in s or "quoteiq" in s or "jobber" in s:
+              if "trade" in s or "saas" in s or "finance" in s or "quoteiq" in s or "jobber" in s:
                   return "images/trades-finance.jpg"
               return "images/hvac-air.jpg"
 
@@ -149,7 +155,7 @@ jobs:
               ]
               stories = []
               for idx, (cat, q) in enumerate(topics):
-                  rss_url = f"https://news.google.com/rss/search?q={urllib.parse.quote(q)}&hl=en-US&gl=US&ceid=US:en"
+                  rss_url = f"https://news.google.com/rss/search?q={urllib.parse.quote(q + ' when:14d')}&hl=en-US&gl=US&ceid=US:en"
                   try:
                       req = urllib.request.Request(rss_url, headers={"User-Agent": "PracticalUtilityBot/1.0"})
                       with urllib.request.urlopen(req, timeout=20) as resp:
@@ -168,8 +174,15 @@ jobs:
                           date_str = dt.strftime("%b %d, %Y")
                       except Exception:
                           date_str = month_label
-                      desc = re.sub(r"<[^>]+>", "", html.unescape(item.findtext("description") or "")).strip()
-                      summary = desc[:220] if len(desc) > 40 else f"Recent update from {source} covering {cat.lower()} developments relevant to homeowners and small-business operators."
+                      desc = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", html.unescape(item.findtext("description") or ""))).strip()
+                      # Google News RSS descriptions often just repeat 'Title Source'—replace with a real summary
+                      is_dup = (not desc) or (title.lower()[:30] in desc.lower() and len(desc) <= len(title) + len(source) + 12)
+                      summary = (
+                          f"Recent {date_str} coverage from {source} examining {cat.lower()} updates, practical cost impacts, and operational takeaways."
+                          if is_dup else desc[:240]
+                      )
+                      detail_p1 = summary if not is_dup else f"{source} published an update on {date_str} covering {title}."
+                      detail_p2 = f"Review the full {source} report via the link below, or open the related PracticalUtility guide for sizing and cost comparisons."
                       stories.append({
                           "id": f"rss-{today}-{idx+1}",
                           "category": cat,
@@ -178,7 +191,7 @@ jobs:
                           "relatedGuideId": valid_ids[idx % len(valid_ids)] if valid_ids else "",
                           "title": title,
                           "summary": summary,
-                          "detail": [summary, f"Read the full coverage directly at {source} using the verified link below."],
+                          "detail": [detail_p1, detail_p2],
                           "url": link
                       })
                   except Exception as err:
