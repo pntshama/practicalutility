@@ -89,7 +89,7 @@ jobs:
                       text = blocks[0].strip()
               for candidate in (text,):
                   try:
-                      return json.loads(candidate)
+                      return json.loads(re.sub(r",\s*([}\]])", r"\1", candidate), strict=False)
                   except Exception:
                       pass
               for open_ch, close_ch in (('[', ']'), ('{', '}')):
@@ -98,18 +98,18 @@ jobs:
                   if start != -1 and end > start:
                       snippet = text[start:end + 1]
                       try:
-                          return json.loads(snippet)
+                          return json.loads(re.sub(r",\s*([}\]])", r"\1", snippet), strict=False)
                       except Exception:
                           # Strip invalid control chars
                           cleaned = re.sub(r'[\x00-\x1f]+', ' ', snippet)
                           try:
-                              return json.loads(cleaned)
+                              return json.loads(re.sub(r",\s*([}\]])", r"\1", cleaned), strict=False)
                           except Exception:
                               continue
               raise ValueError(f"Could not parse JSON from model output: {raw_text[:400]}")
 
           def call_gemini_search(prompt):
-              models = ["gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash"]
+              models = ["gemini-2.5-flash", "gemini-2.5-flash-lite"]
               last_err = None
               for model in models:
                   url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
@@ -160,7 +160,22 @@ jobs:
                       req = urllib.request.Request(rss_url, headers={"User-Agent": "PracticalUtilityBot/1.0"})
                       with urllib.request.urlopen(req, timeout=20) as resp:
                           root = ET.fromstring(resp.read())
-                      item = root.find("./channel/item")
+                      items = root.findall("./channel/item")
+                      item = None
+                      now_utc = datetime.datetime.now(datetime.timezone.utc)
+                      for cand in items[:8]:
+                          pub_cand = cand.findtext("pubDate") or ""
+                          try:
+                              dt_cand = email.utils.parsedate_to_datetime(pub_cand)
+                              if dt_cand.tzinfo is None:
+                                  dt_cand = dt_cand.replace(tzinfo=datetime.timezone.utc)
+                              if (now_utc - dt_cand).days <= 30:
+                                  item = cand
+                                  break
+                          except Exception:
+                              continue
+                      if item is None and items:
+                          item = items[0]
                       if item is None:
                           continue
                       raw_title = (item.findtext("title") or "").strip()
@@ -216,24 +231,27 @@ jobs:
               "keyword, readTime, updated (YYYY-MM-DD), partner, partnerUrl, summary (1-2 sentences), body (array of 3 detailed practical paragraphs), "
               "sources (array of {label, url} using real verified https URLs)."
           )
-          new_art = call_gemini_search(art_prompt)
-          if isinstance(new_art, list) and new_art:
-              new_art = new_art[0]
-          if not isinstance(new_art, dict) or not new_art.get("title"):
-              raise ValueError(f"Invalid article object returned: {new_art}")
+          try:
+              new_art = call_gemini_search(art_prompt)
+              if isinstance(new_art, list) and new_art:
+                  new_art = new_art[0]
+              if not isinstance(new_art, dict) or not new_art.get("title"):
+                  raise ValueError(f"Invalid article object returned: {new_art}")
 
-          slug = re.sub(r'[^a-z0-9-]+', '-', (new_art.get('id') or new_art['title']).lower()).strip('-')[:60]
-          new_art['id'] = slug or f"guide-{today}"
-          new_art['updated'] = today
-          new_art['category'] = normalize_category(new_art.get('category'), new_art['title'])
-          new_art['image'] = image_for(new_art['category'], new_art['id'])
-          if not any(a['id'] == new_art['id'] for a in articles):
-              articles.insert(0, new_art)
-              with open('articles.json', 'w', encoding='utf-8') as f:
-                  json.dump(articles, f, indent=2, ensure_ascii=False)
-              print("Added trending article:", new_art["title"])
-          else:
-              print("Article slug already exists, skipping duplicate:", new_art['id'])
+              slug = re.sub(r'[^a-z0-9-]+', '-', (new_art.get('id') or new_art['title']).lower()).strip('-')[:60]
+              new_art['id'] = slug or f"guide-{today}"
+              new_art['updated'] = today
+              new_art['category'] = normalize_category(new_art.get('category'), new_art['title'])
+              new_art['image'] = image_for(new_art['category'], new_art['id'])
+              if not any(a['id'] == new_art['id'] for a in articles):
+                  articles.insert(0, new_art)
+                  with open('articles.json', 'w', encoding='utf-8') as f:
+                      json.dump(articles, f, indent=2, ensure_ascii=False)
+                  print("Added trending article:", new_art["title"])
+              else:
+                  print("Article slug already exists, skipping duplicate:", new_art['id'])
+          except Exception as err:
+              print(f"::warning::Skipping new guide generation today (Gemini error): {err}")
 
           # 2. Fetch 4 current world & industry news stories via Gemini + Google Search (RSS fallback)
           news_prompt = (
