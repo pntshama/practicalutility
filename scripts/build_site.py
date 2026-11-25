@@ -24,13 +24,19 @@ def esc(s):
 
 def default_image_for(article):
     img = article.get("image") or ""
-    if img.startswith("images/"):
+    if img.startswith("images/") and (ROOT / img).exists():
         return img
     aid = (article.get("id") or "").lower()
     cat = (article.get("category") or "").lower()
-    if any(k in aid for k in ("hvac", "mini-split", "dehumidifier")) or "home" in cat:
+    if any(k in aid for k in ("dehumidifier", "mini-split")):
+        return "images/dehumidifier-basement.jpg"
+    if any(k in aid for k in ("tankless", "softener", "sediment")):
+        return "images/tankless-water-heater.jpg"
+    if any(k in aid for k in ("invoic", "billing", "accounting", "job-costing")):
+        return "images/invoicing-desk.jpg"
+    if any(k in aid for k in ("hvac", "merv", "filter-pressure")) or "home" in cat:
         return "images/hvac-air.jpg"
-    if any(k in aid for k in ("water", "pfas", "softener")) or "water" in cat:
+    if any(k in aid for k in ("water", "pfas", "countertop")) or "water" in cat:
         return "images/water-filter.jpg"
     return "images/trades-finance.jpg"
 
@@ -457,6 +463,14 @@ def render_index_page(articles, news):
       }}
     }}
 
+    function articleImage(a) {{
+      if (a.image && a.image.startsWith('images/')) return a.image;
+      const s = `${{a.id || ''}} ${{a.category || ''}}`.toLowerCase();
+      if (s.includes('water') || s.includes('pfas') || s.includes('softener')) return 'images/water-filter.jpg';
+      if (s.includes('trade') || s.includes('saas') || s.includes('finance') || s.includes('invoic')) return 'images/trades-finance.jpg';
+      return 'images/hvac-air.jpg';
+    }}
+
     function renderArticles() {{
       const grid = document.getElementById('articlesGrid');
       const empty = document.getElementById('emptyArticles');
@@ -477,7 +491,7 @@ def render_index_page(articles, news):
       grid.innerHTML = filtered.map(a => `
         <article class="animate-card bg-white border border-stone-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition duration-200 flex flex-col">
           <a href="./guides/${{a.id}}.html" class="block">
-            <img src="./${{a.image || 'images/hvac-air.jpg'}}" alt="${{a.title}}" loading="lazy" onerror="this.style.display='none'" class="w-full h-40 object-cover bg-stone-100" />
+            <img src="./${{articleImage(a)}}" alt="${{a.title}}" loading="lazy" onerror="this.style.display='none'" class="w-full h-40 object-cover bg-stone-100" />
           </a>
           <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between gap-4">
             <div>
