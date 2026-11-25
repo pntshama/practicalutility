@@ -26,6 +26,15 @@ jobs:
             fi
           done
 
+      - name: Verify GEMINI_API_KEY secret is configured
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [ -z "$GEMINI_API_KEY" ]; then
+            echo "::error::GEMINI_API_KEY secret is missing. Add it in Repo Settings -> Secrets and variables -> Actions -> New repository secret."
+            exit 1
+          fi
+
       - name: Fetch trending article & current world news
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -37,6 +46,34 @@ jobs:
           key = (os.environ.get('GEMINI_API_KEY') or '').strip()
           today = datetime.date.today().isoformat()
           month_label = datetime.date.today().strftime('%b %Y')
+          VALID_CATS = ['Home Utility', 'Water & Air', 'Trades & B2B SaaS', 'Finance & Ops']
+
+          def normalize_category(raw_cat, title_or_id=""):
+              c = (raw_cat or "").strip().lower()
+              if "water" in c or "air" in c:
+                  return "Water & Air"
+              if "trade" in c or "saas" in c or "field" in c:
+                  return "Trades & B2B SaaS"
+              if "finance" in c or "ops" in c or "invoic" in c:
+                  return "Finance & Ops"
+              if "home" in c or "hvac" in c or "utility" in c:
+                  return "Home Utility"
+              t = title_or_id.lower()
+              if any(k in t for k in ("water", "pfas", "filter", "ro ", "softener")):
+                  return "Water & Air"
+              if any(k in t for k in ("field", "contractor", "jobber", "quoteiq", "crm")):
+                  return "Trades & B2B SaaS"
+              if any(k in t for k in ("invoic", "accounting", "cash", "zoho")):
+                  return "Finance & Ops"
+              return "Home Utility"
+
+          def image_for(cat, aid):
+              s = f"{cat} {aid}".lower()
+              if "water" in s or "pfas" in s or "softener" in s:
+                  return "images/water-filter.jpg"
+              if "trade" in s or "saas" in s or "finance" in s or "invoic" in s or "quoteiq" in s or "jobber" in s:
+                  return "images/trades-finance.jpg"
+              return "images/hvac-air.jpg"
 
           def extract_json(raw_text):
               text = raw_text.strip()
@@ -44,23 +81,29 @@ jobs:
                   blocks = re.findall(r"```(?:json)?\s*([\s\S]*?)```", text)
                   if blocks:
                       text = blocks[0].strip()
-              try:
-                  return json.loads(text)
-              except Exception:
-                  pass
-              # Fallback: scan for outermost JSON array or object
+              for candidate in (text,):
+                  try:
+                      return json.loads(candidate)
+                  except Exception:
+                      pass
               for open_ch, close_ch in (('[', ']'), ('{', '}')):
                   start = text.find(open_ch)
                   end = text.rfind(close_ch)
                   if start != -1 and end > start:
+                      snippet = text[start:end + 1]
                       try:
-                          return json.loads(text[start:end + 1])
+                          return json.loads(snippet)
                       except Exception:
-                          continue
+                          # Strip invalid control chars
+                          cleaned = re.sub(r'[\x00-\x1f]+', ' ', snippet)
+                          try:
+                              return json.loads(cleaned)
+                          except Exception:
+                              continue
               raise ValueError(f"Could not parse JSON from model output: {raw_text[:400]}")
 
           def call_gemini_search(prompt):
-              models = ["gemini-2.5-flash", "gemini-2.0-flash"]
+              models = ["gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash"]
               last_err = None
               for model in models:
                   url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
@@ -88,7 +131,7 @@ jobs:
                           last_err = f"{model} HTTP {e.code}: {body[:300]}"
                           print("WARN:", last_err)
                           if e.code in (429, 500, 503) and attempt == 0:
-                              time.sleep(4)
+                              time.sleep(5)
                               continue
                           break
                       except Exception as e:
@@ -147,65 +190,63 @@ jobs:
 
           valid_ids = [a['id'] for a in articles[:10]]
 
-          if key:
-              # 1. Generate 1 trending guide via Gemini + Google Search
-              existing_titles = [a.get('title', '') for a in articles[:15]]
-              art_prompt = (
-                  f"Today is {today}. Use Google Search to find 1 currently trending, high-search-volume practical topic "
-                  "in Home Utility (HVAC, dehumidifiers, mini-splits, tankless heaters), Water & Air filtration, Trades & B2B SaaS, or Finance & Ops invoicing. "
-                  "Avoid duplicating these existing titles: " + "; ".join(existing_titles) + ". "
-                  "If the topic is Trades & B2B SaaS, set partner to 'QuoteIQ Field Service Software (Promo Code: YHOFL8W1 — $1 Off)' and partnerUrl to 'https://admin-quoteiq.web.app/register?via=puneet-sharma'. "
-                  "Never include internal affiliate commission percentages or affiliate-program signup URLs in partner or sources; use official consumer product URLs. "
-                  "Return ONLY raw JSON (no prose) as a single object with keys: id (kebab-case slug), title, category (Home Utility | Water & Air | Trades & B2B SaaS | Finance & Ops), "
-                  "keyword, readTime, updated (YYYY-MM-DD), partner, partnerUrl, summary (1-2 sentences), body (array of 3 detailed practical paragraphs), "
-                  "sources (array of {label, url} using real verified https URLs)."
-              )
-              try:
-                  new_art = call_gemini_search(art_prompt)
-                  if isinstance(new_art, list) and new_art:
-                      new_art = new_art[0]
-                  if isinstance(new_art, dict) and new_art.get("title"):
-                      slug = re.sub(r'[^a-z0-9-]+', '-', new_art.get('id', new_art['title']).lower()).strip('-')[:60]
-                      new_art['id'] = slug or f"guide-{today}"
-                      new_art['updated'] = today
-                      if not any(a['id'] == new_art['id'] for a in articles):
-                          articles.insert(0, new_art)
-                          with open('articles.json', 'w', encoding='utf-8') as f:
-                              json.dump(articles, f, indent=2, ensure_ascii=False)
-                          print("Added trending article:", new_art["title"])
-              except Exception as err:
-                  print("WARN: Skipped Gemini article generation:", err)
+          # 1. Generate 1 trending guide via Gemini + Google Search
+          existing_titles = [a.get('title', '') for a in articles[:15]]
+          art_prompt = (
+              f"Today is {today}. Use Google Search to find 1 currently trending, high-search-volume practical topic "
+              "in Home Utility (HVAC, dehumidifiers, mini-splits, tankless heaters), Water & Air filtration, Trades & B2B SaaS, or Finance & Ops invoicing. "
+              "Avoid duplicating these existing titles: " + "; ".join(existing_titles) + ". "
+              "Write strictly for homeowners or small-business buyers—NEVER mention SEO, CPC, keywords, bloggers, or affiliate commissions/payouts, and NEVER put raw URLs in body text. "
+              "If the topic is Trades & B2B SaaS, set partner to 'QuoteIQ Field Service Software (Promo Code: YHOFL8W1 — $1 Off)' and partnerUrl to 'https://admin-quoteiq.web.app/register?via=puneet-sharma'. "
+              "Never include internal affiliate commission percentages or affiliate-program signup URLs in partner or sources; use official consumer product URLs. "
+              "Return ONLY raw JSON (no prose, no markdown) as a single object with keys: id (kebab-case slug), title, category (Home Utility | Water & Air | Trades & B2B SaaS | Finance & Ops), "
+              "keyword, readTime, updated (YYYY-MM-DD), partner, partnerUrl, summary (1-2 sentences), body (array of 3 detailed practical paragraphs), "
+              "sources (array of {label, url} using real verified https URLs)."
+          )
+          new_art = call_gemini_search(art_prompt)
+          if isinstance(new_art, list) and new_art:
+              new_art = new_art[0]
+          if not isinstance(new_art, dict) or not new_art.get("title"):
+              raise ValueError(f"Invalid article object returned: {new_art}")
 
-              # 2. Fetch 4 current world & industry news stories via Gemini + Google Search
-              news_prompt = (
-                  f"Today is {today}. Use Google Search to find 4 recent, legitimate industry news stories "
-                  "(1 each for: Water & Air, Home Utility, Finance & Ops, Trades & B2B SaaS). "
-                  f"For each story, optionally pick the closest relatedGuideId from: {valid_ids}. "
-                  "Return ONLY raw JSON (no prose) as an array of 4 objects with keys: id, category, source (publisher name), date (e.g. 'Nov 2026'), "
-                  "relatedGuideId, title, summary (2 clear sentences), detail (array of 2 concise paragraphs), and url (verified https URL)."
-              )
-              try:
-                  fresh_news = call_gemini_search(news_prompt)
-                  if isinstance(fresh_news, list) and len(fresh_news) > 0:
-                      with open('news.json', 'w', encoding='utf-8') as f:
-                          json.dump(fresh_news, f, indent=2, ensure_ascii=False)
-                      print("Updated news.json via Gemini with", len(fresh_news), "stories")
-                  else:
-                      raise ValueError("Empty news list from Gemini")
-              except Exception as err:
-                  print("WARN: Gemini news failed, falling back to RSS:", err)
-                  rss_news = fetch_rss_news(valid_ids)
-                  if rss_news:
-                      with open('news.json', 'w', encoding='utf-8') as f:
-                          json.dump(rss_news, f, indent=2, ensure_ascii=False)
-                      print("Updated news.json via RSS fallback with", len(rss_news), "stories")
+          slug = re.sub(r'[^a-z0-9-]+', '-', (new_art.get('id') or new_art['title']).lower()).strip('-')[:60]
+          new_art['id'] = slug or f"guide-{today}"
+          new_art['updated'] = today
+          new_art['category'] = normalize_category(new_art.get('category'), new_art['title'])
+          new_art['image'] = image_for(new_art['category'], new_art['id'])
+          if not any(a['id'] == new_art['id'] for a in articles):
+              articles.insert(0, new_art)
+              with open('articles.json', 'w', encoding='utf-8') as f:
+                  json.dump(articles, f, indent=2, ensure_ascii=False)
+              print("Added trending article:", new_art["title"])
           else:
-              print("INFO: GEMINI_API_KEY secret is not set; refreshing news.json via live RSS fallback (add GEMINI_API_KEY in Repo Settings -> Secrets -> Actions to enable daily AI guide generation).")
+              print("Article slug already exists, skipping duplicate:", new_art['id'])
+
+          # 2. Fetch 4 current world & industry news stories via Gemini + Google Search (RSS fallback)
+          news_prompt = (
+              f"Today is {today}. Use Google Search to find 4 recent, legitimate industry news stories "
+              "published within the last 14 days (1 each for: Water & Air, Home Utility, Finance & Ops, Trades & B2B SaaS). Skip old vendor buyer's guides or listicles. "
+              f"For each story, optionally pick the closest relatedGuideId from: {valid_ids}. "
+              "Return ONLY raw JSON (no prose) as an array of 4 objects with keys: id, category, source (publisher name), date (e.g. 'Nov 2026'), "
+              "relatedGuideId, title, summary (2 clear sentences), detail (array of 2 concise paragraphs), and url (verified https URL)."
+          )
+          try:
+              fresh_news = call_gemini_search(news_prompt)
+              if isinstance(fresh_news, list) and len(fresh_news) > 0:
+                  for item in fresh_news:
+                      item['category'] = normalize_category(item.get('category'), item.get('title', ''))
+                  with open('news.json', 'w', encoding='utf-8') as f:
+                      json.dump(fresh_news, f, indent=2, ensure_ascii=False)
+                  print("Updated news.json via Gemini with", len(fresh_news), "stories")
+              else:
+                  raise ValueError("Empty news list from Gemini")
+          except Exception as err:
+              print("WARN: Gemini news failed, falling back to RSS:", err)
               rss_news = fetch_rss_news(valid_ids)
               if rss_news:
                   with open('news.json', 'w', encoding='utf-8') as f:
                       json.dump(rss_news, f, indent=2, ensure_ascii=False)
-                  print("Updated news.json via RSS with", len(rss_news), "stories")
+                  print("Updated news.json via RSS fallback with", len(rss_news), "stories")
           PY
 
       - name: Rebuild static guide pages, index.html & sitemap.xml
@@ -218,7 +259,7 @@ jobs:
           git add articles.json news.json index.html about.html guides/ sitemap.xml robots.txt
           if ! git diff --cached --quiet; then
             git commit -m "Daily trending SEO refresh and static rebuild"
-            git pull --rebase origin main
+            git pull --rebase --autostash origin main
             git push origin main
           else
             echo "No changes to commit."
