@@ -1,58 +1,44 @@
 [
   {
-    "id": "epa-pfas-compliance-nov-2026",
+    "id": "rss-2026-11-26-1",
     "category": "Water & Air",
-    "source": "US EPA / EarthTimes",
-    "date": "Nov 2026",
-    "relatedGuideId": "pfas-water-filter-guide-2026",
-    "title": "EPA PFAS Drinking Water Compliance Extension Proposal Remains Under Review Ahead of 2031 Deadline",
-    "summary": "The U.S. EPA's proposed rule upholding federal PFOA and PFOS Maximum Contaminant Levels while allowing utilities to request a two-year compliance extension to 2031 remains a focal point for municipal water systems in late November 2026. Homeowners relying on public water still need certified NSF/ANSI 53 or 58 point-of-use filtration for immediate PFAS reduction.",
+    "source": "The Wayland Post",
+    "date": "Nov 21, 2026",
+    "relatedGuideId": "whole-house-carbon-filter-vs-under-sink-ro-2026",
+    "title": "Unregulated PFAS compounds found in Wayland drinking water",
+    "summary": "Recent Nov 21, 2026 coverage from The Wayland Post examining water & air updates, practical cost impacts, and operational takeaways.",
     "detail": [
-      "Following the May 18, 2026 proposed rule and July 2026 public comment period (Docket ID: EPA-HQ-OW-2025-1742), drinking water utilities could receive until 2031 to meet enforceable PFOA and PFOS limits, while separate proposals would rescind limits for PFHxS, PFNA, HFPO-DA, and Hazard Index mixtures.",
-      "Because municipal treatment upgrades can take years to fund and install, residential under-sink reverse osmosis and certified activated-carbon filters remain the fastest household safeguard."
+      "The Wayland Post published an update on Nov 21, 2026 covering Unregulated PFAS compounds found in Wayland drinking water.",
+      "Review the full The Wayland Post report via the link below, or open the related PracticalUtility guide for sizing and cost comparisons."
     ],
-    "url": "https://www.epa.gov/sdwa/proposed-pfoa-and-pfos-compliance-extension-rule"
+    "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQMGtKd1FDY01vdnhoczN2aXlYSGtNMkJqaEl0V2Jqdm1icmdrN2Q5MklLVEhBY2g4dWY5azhtYUlmTDR4bzlrZi1HSnh0ZlRMZEcwV0tPUHVZbWxrT1BJSzBjd1hSMmFmTmt3X1FDTUxNRjhrRV9yWlZJVkF3dzc5OVMzaVZRVTJORFR5bFBZNk42SkdsSi1R?oc=5"
   },
   {
-    "id": "water-filter-guru-ro-2026",
-    "category": "Water & Air",
-    "source": "Water Filter Guru",
-    "date": "Nov 2026",
-    "relatedGuideId": "ro-remineralization-alkaline-filter-worth-it-2026",
-    "title": "2026 Reverse Osmosis Lab Rankings Highlight Efficiency Ratios & Built-In Remineralization",
-    "summary": "November 2026 lab testing of countertop and tankless RO systems shows top-performing units reaching 2.36:1 to 3:1 pure-to-waste ratios while carrying IAPMO/NSF 58 certifications. Models with optional remineralization stages remain popular for drinking flavor.",
-    "detail": [
-      "Independent water lab benchmarks published in November 2026 emphasize verifying NSF/ANSI 58 and IAPMO certifications for TDS and health contaminants rather than relying on unverified manufacturer claims.",
-      "Tankless under-sink systems and countertop carafes have narrowed the gap on water waste, making high-efficiency RO practical for apartments and standard residential kitchens."
-    ],
-    "url": "https://waterfilterguru.com/best-reverse-osmosis-system-reviews/"
-  },
-  {
-    "id": "winter-furnace-airflow-checklist-2026",
+    "id": "rss-2026-11-26-2",
     "category": "Home Utility",
-    "source": "Capitol Cooling",
-    "date": "Nov 2026",
-    "relatedGuideId": "whole-house-humidifier-vs-portable-furnace-2026",
-    "title": "Winter Furnace Checklist Warns Against Closing Supply Vents to Redirect Heat",
-    "summary": "Seasonal HVAC guidance published in November 2026 reminds homeowners that closing multiple supply registers increases static pressure and harms blower airflow balance. Keeping return vents clear and swapping clogged filters prevents winter lockouts.",
+    "source": "ACHR News",
+    "date": "Nov 18, 2026",
+    "relatedGuideId": "crawl-space-vapor-barrier-vs-dehumidifier-2026",
+    "title": "Winter Grid Headroom Could Change How Contractors Sell Heat Pumps",
+    "summary": "Recent Nov 18, 2026 coverage from ACHR News examining home utility updates, practical cost impacts, and operational takeaways.",
     "detail": [
-      "Forced-air furnaces are sized for a specific return and supply airflow balance, so blocking vents with rugs, furniture, or closed dampers strains the blower motor and heat exchanger.",
-      "Pair pre-winter filter replacements with a quick clearance check around the furnace cabinet to keep heating cycles safe and efficient."
+      "ACHR News published an update on Nov 18, 2026 covering Winter Grid Headroom Could Change How Contractors Sell Heat Pumps.",
+      "Review the full ACHR News report via the link below, or open the related PracticalUtility guide for sizing and cost comparisons."
     ],
-    "url": "https://capitolcooling.com/furnace-maintenance-checklist-winter/"
+    "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNcEpzVjNJSFl0RlBNOXRRQmpZV3FnNEJ1UW9HUy1hdFFTQU16amFtNTVyVS1Ja1lYRV9KT0ZNYzRGNmZYRDVoMTdHc1pUZGlCS3RDQk1FX2J5Y1RxamhUaWQxX1BPT2R6WF9POHhPYjdIZ3FEdS1TY2UxTnI2MFZfeVRZbGtZNzZVZEUtNUJwaC1QdlJZeldqYTYwM3RoLTVabG16S0hHNjgyQQ?oc=5"
   },
   {
-    "id": "smb-ar-automation-tools-2026",
-    "category": "Finance & Ops",
-    "source": "DualEntry",
-    "date": "Nov 2026",
-    "relatedGuideId": "small-business-accounts-receivable-dso-2026",
-    "title": "2026 Accounts Receivable Software Benchmarks Focus on Cash Application & DSO Reduction",
-    "summary": "A November 2026 market review of 15 AR automation platforms highlights automated dunning schedules, self-service customer payment portals, and AI-assisted payment matching as the fastest levers to cut DSO. Small businesses adopting automated reminders report fewer overdue balances.",
+    "id": "rss-2026-11-26-3",
+    "category": "Trades & B2B SaaS",
+    "source": "Contracting Business",
+    "date": "Nov 16, 2026",
+    "relatedGuideId": "contractor-lien-waiver-retainage-automation-2026",
+    "title": "Worley’s Home Services Named PHCC’s 2026 HVAC Contractor of the Year",
+    "summary": "Recent Nov 16, 2026 coverage from Contracting Business examining trades & b2b saas updates, practical cost impacts, and operational takeaways.",
     "detail": [
-      "Replacing manual spreadsheet aging reviews with automated reminders and online payment links helps lean finance teams collect closer to invoice due dates.",
-      "Evaluating native accounting sync and multi-invoice payment matching is key before adding standalone collections tools."
+      "Contracting Business published an update on Nov 16, 2026 covering Worley’s Home Services Named PHCC’s 2026 HVAC Contractor of the Year.",
+      "Review the full Contracting Business report via the link below, or open the related PracticalUtility guide for sizing and cost comparisons."
     ],
-    "url": "https://www.dualentry.com/blog/best-accounts-receivable-automation-software"
+    "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQNlZwMmUtbi05ZFpUWFdITTJsaFlWWktoWm9nUmNmaHVxaHVVbm42QkI5QlE2RThMZ2pBTndFdUUwS3ZLalVDT3FxcHVZcnk5UVpPVTBqa2p1WmNzb2V3UlVLNUhiTXlUMGN0VWhseld5blNoMFJ5ZWdYVUc1aFg2dFN3bG9zazQtU29vb3BmMFpSUGY5MnNBOVJOYlJTYWE3Sk1FbF9EOEp1RnA3R3FOQUoyVFVZRFFhVXJKamFWV0tUWl95bzdKdVVn?oc=5"
   }
 ]
